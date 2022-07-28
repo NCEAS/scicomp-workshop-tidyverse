@@ -6,19 +6,115 @@ title: "Wrangle"
 library(tidyverse); library(palmerpenguins)
 ```
 
-## Workshop Topic Heading
+## Introduction
 
-<img src = "images/nceas_logo_square.png" align = "right" width = "15%" />
+<img src="images/nceas_logo_square.png" align="right" width="15%"/>
 
-Duplicate this file (or create new .qmd files) for each major section of the workshop. **Remember to add it to the "_quarto.yml" and run `quarto render` in the Terminal to add the page to the deployed website!**
+What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and maybe add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do this reformatting quickly. Here we introduce some commonly used functions from these two packages.
 
+## Our Data
 
-dplyr::select with dplyr::contains()
-dplyr::filter() with logical and boolean operators
-tidyr::separate()
-dplyr::mutate()
-dplyr::case_when()
+The data we'll be using for this workshop comes from the `palmerpenguins` package, maintained by [Allison Horst](ahorst@ucsb.edu). The "penguins" dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let's take a look at it.
 
-### Workshop Subheading
+```{r}
+penguins
+```
 
-It is worthwhile to use two "#" for headings and three "#" for subheadings to that the live table of the contents on the right hand side of the deployed website allows easy navigation among sections.
+The "penguins" dataset has 344 rows and 8 columns. 
+
+The columns are as follows:
+
+`species`: a factor denoting penguin species (Adélie, Chinstrap and Gentoo)
+
+`island`: a factor denoting island in Palmer Archipelago, Antarctica (Biscoe, Dream or Torgersen)
+
+`bill_length_mm`: a number denoting bill length (millimeters)
+
+`bill_depth_mm`: a number denoting bill depth (millimeters)
+
+`flipper_length_mm`: an integer denoting flipper length (millimeters)
+
+`body_mass_g`: an integer denoting body mass (grams)
+
+`sex`: a factor denoting penguin sex (female, male)
+
+`year`: an integer denoting the study year (2007, 2008, or 2009)
+
+This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own row. Generally speaking, `dplyr` functions expect tidy data. So what happens when data isn't tidy? Well, `tidyr` has some handy functions for reshaping your data into tidy data (more on this later).
+
+## Selecting columns
+
+To start off, how do we do a basic action like selecting the columns we want? `dplyr`'s `select` function provides us with an easy way to do just that. We only need to provide the column names! 
+
+### Example: Select
+
+For example, to select only the `species`, `island`, and `body_mass_g` columns, we can do:
+
+```{r}
+# Provide the name of the data and then the columns that you want!
+penguins_v1 <- dplyr::select(.data = penguins,
+                             species, island, body_mass_g)
+
+# Look at our final product
+head(penguins_v1)
+```
+
+If we want to remove specific columns, we can use the `-` operator. 
+
+```{r}
+# Put a "-" in front of each column you would like to remove from your dataframe
+penguins_v1 <- dplyr::select(.data = penguins,
+                             -flipper_length_mm, -sex)
+
+# Look at our final product
+head(penguins_v1)
+```
+
+### Example: Selecting columns with helper functions
+
+If we want to select the columns that contains length measurements, we can manually type `bill_length_mm` and `flipper_length_mm`, but there's actually an easier way using the `contains()` helper function. Enter a string that matches what you're looking for among the column names.   
+
+```{r}
+# Enter a matching string
+penguins_v1 <- dplyr::select(.data = penguins,
+                             contains("length"))
+
+# Look at our final product
+head(penguins_v1)
+```
+
+In addition to `contains()`, `starts_with()` and `ends_with()` are also two other helper functions that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in "mm"...
+
+```{r}
+# Enter a matching string
+penguins_v1 <- dplyr::select(.data = penguins,
+                             ends_with("mm"))
+
+# Look at our final product
+head(penguins_v1)
+```
+
+Now what if we wanted all the columns from the first column `species` to the sixth column `body_mass_g`? Simply use a colon `:`.
+
+```{r}
+# Use a colon to indicate a range of columns you want to select
+penguins_v1 <- dplyr::select(.data = penguins,
+                             species:body_mass_g)
+
+# Look at our final product
+head(penguins_v1)
+```
+
+These helper functions make it easy and convenient to select multiple columns at once, which is especially useful if you have a big dataframe. 
+
+## Filtering rows
+
+## Making new columns 
+
+### Example: Mutate
+
+### Example: Case When
+
+## Splitting cells
+
+### Example: Separate
