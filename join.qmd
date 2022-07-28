@@ -17,3 +17,19 @@ dplyr::…_join() functions
 ### Workshop Subheading
 
 It is worthwhile to use two "#" for headings and three "#" for subheadings to that the live table of the contents on the right hand side of the deployed website allows easy navigation among sections.
+
+<img src="images/join-left.png" align="center" width="50%" />
+
+
+<img src="images/join-right.png" align="center" width="50%" />
+
+
+<img src="images/join-inner.png" align="center" width="50%" />
+
+
+<img src="images/join-full.png" align="center" width="50%" />
+
+
+
+<img src="images/join-anti.png" align="center" width="50%" />
+
