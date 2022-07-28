@@ -58,6 +58,8 @@ Now that we've covered the `%>%` operator we can use it to do group-wise summari
 
 To summarize by groups we first define our groups using `dplyr`'s `group_by` function and then summarize using `summarize` (also from `dplyr`). `summarize` does require you to specify what calculations you want to perform within your groups though it uses similar syntax to `dplyr`'s `mutate` function.
 
+<img src="images/summarize-group-by.png" align="center" width="50%" />
+
 Despite the similarity in syntax between `summarize` and `mutate` there are a few crucial differences:
 
 - `summarize` returns only a single row per group while `mutate` returns as many rows as are in the original dataframe
