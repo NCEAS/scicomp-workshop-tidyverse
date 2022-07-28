@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.243">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>NCEAS Sci Comp Workshop - Template - Wrangle</title>
+  <title>NCEAS Sci Comp Workshop - Tidyverse - Wrangle</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
   <link rel="stylesheet" href="styles.css">
-<meta name="twitter:title" content="NCEAS Sci Comp Workshop - Template - Wrangle">
+<meta name="twitter:title" content="NCEAS Sci Comp Workshop - Tidyverse - Wrangle">
 <meta name="twitter:card" content="summary">
 </head>
 <body class="nav-fixed">
@@ -126,7 +126,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">NCEAS Sci Comp Workshop - Template</span>
+    <span class="navbar-title">NCEAS Sci Comp Workshop - Tidyverse</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -248,7 +248,7 @@
 <section id="selecting-columns" class="level2">
 <h2 class="anchored" data-anchor-id="selecting-columns">Selecting columns</h2>
 <p>To start off, how do we do a fundamental action like selecting the columns we want? <code>dplyr</code>’s <code>select</code> function provides us with a straightforward way to do just that. We only need to provide the column names!</p>
-<p><img src="images/wrangle-select.png" align="center" width="75%"></p>
+<p><img src="images/wrangle-select.png" align="center" width="50%"></p>
 <section id="example-select" class="level3">
 <h3 class="anchored" data-anchor-id="example-select">Example: Select</h3>
 <p>For example, to select only the <code>species</code>, <code>island</code>, and <code>body_mass_g</code> columns, we can use the following code:</p>
@@ -292,7 +292,7 @@
 </section>
 <section id="example-selecting-columns-with-helper-functions" class="level3">
 <h3 class="anchored" data-anchor-id="example-selecting-columns-with-helper-functions">Example: Selecting columns with helper functions</h3>
-<p>If we want to select the columns that contain length measurements, we can manually type <code>bill_length_mm</code> and <code>flipper_length_mm</code>, but there’s actually an easier way using the <code>contains()</code> function, also from the <code>dplyr</code> package. Enter a string that matches what you’re looking for among the column names.</p>
+<p>If we want to select the columns that contain length measurements, we can manually type <code>bill_length_mm</code> and <code>flipper_length_mm</code>, but there’s actually an easier way using the <code>contains</code> function, also from the <code>dplyr</code> package. Enter a string that matches what you’re looking for among the column names.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter a matching string inside of a `select` call</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, dplyr<span class="sc">::</span><span class="fu">contains</span>(<span class="st">"length"</span>))</span>
@@ -311,7 +311,7 @@
 6           39.3               190</code></pre>
 </div>
 </div>
-<p>In addition to <code>contains()</code>, <code>starts_with()</code> and <code>ends_with()</code> are also two other helper functions–also from the <code>dplyr</code> package–that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in “mm”…</p>
+<p>In addition to <code>contains</code>, <code>starts_with</code> and <code>ends_with</code> are also two other helper functions–also from the <code>dplyr</code> package–that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in “mm”…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter a string that matches the end of the column names</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, dplyr<span class="sc">::</span><span class="fu">ends_with</span>(<span class="st">"_mm"</span>))</span>
@@ -330,14 +330,13 @@
 6           39.3          20.6               190</code></pre>
 </div>
 </div>
-<p>Now what if we wanted all the columns from the first column <code>species</code> to the sixth column <code>body_mass_g</code>? Simply use a colon <code>:</code>.</p>
+<p>Now what if we wanted all the columns from the first column <code>species</code> to the sixth column <code>body_mass_g</code>? We can use a colon <code>:</code> between the first (leftmost) and last (rightmost) columns in the range that we want to include.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a colon to indicate a range of columns you want to select</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                             species<span class="sc">:</span>body_mass_g)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at our final product</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, species<span class="sc">:</span>body_mass_g)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at our final product</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
