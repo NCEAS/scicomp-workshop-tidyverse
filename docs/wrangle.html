@@ -1,133 +1,126 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.243">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>NCEAS Sci Comp Workshop - Template - Wrangle</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.629">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>NCEAS Sci Comp Workshop - Template - Wrangle</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 20,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
-  }
-}</script>
-
-
-<link rel="stylesheet" href="styles.css">
+  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="./">
+  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="site_libs/quarto-search/fuse.min.js"></script>
+  <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <script src="site_libs/quarto-html/quarto.js"></script>
+  <script src="site_libs/quarto-html/popper.min.js"></script>
+  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="site_libs/quarto-html/anchor.min.js"></script>
+  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link class="quarto-color-scheme" href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="site_libs/bootstrap/bootstrap-dark.min.css">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="styles.css">
 <meta name="twitter:title" content="NCEAS Sci Comp Workshop - Template - Wrangle">
-<meta name="twitter:description" content="What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and maybe add new columns? This is called data wrangling.">
 <meta name="twitter:card" content="summary">
 </head>
-
 <body class="nav-fixed">
-
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -180,76 +173,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#our-data" id="toc-our-data" class="nav-link" data-scroll-target="#our-data">Our Data</a></li>
-  <li><a href="#selecting-columns" id="toc-selecting-columns" class="nav-link" data-scroll-target="#selecting-columns">Selecting columns</a>
-  <ul class="collapse">
-  <li><a href="#example-select" id="toc-example-select" class="nav-link" data-scroll-target="#example-select">Example: Select</a></li>
-  <li><a href="#example-selecting-columns-with-helper-functions" id="toc-example-selecting-columns-with-helper-functions" class="nav-link" data-scroll-target="#example-selecting-columns-with-helper-functions">Example: Selecting columns with helper functions</a></li>
-  </ul></li>
-  <li><a href="#filtering-rows" id="toc-filtering-rows" class="nav-link" data-scroll-target="#filtering-rows">Filtering rows</a></li>
-  <li><a href="#making-new-columns" id="toc-making-new-columns" class="nav-link" data-scroll-target="#making-new-columns">Making new columns</a>
-  <ul class="collapse">
-  <li><a href="#example-mutate" id="toc-example-mutate" class="nav-link" data-scroll-target="#example-mutate">Example: Mutate</a></li>
-  <li><a href="#example-case-when" id="toc-example-case-when" class="nav-link" data-scroll-target="#example-case-when">Example: Case When</a></li>
-  </ul></li>
-  <li><a href="#splitting-cells" id="toc-splitting-cells" class="nav-link" data-scroll-target="#splitting-cells">Splitting cells</a>
-  <ul class="collapse">
-  <li><a href="#example-separate" id="toc-example-separate" class="nav-link" data-scroll-target="#example-separate">Example: Separate</a></li>
-  </ul></li>
-  </ul>
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#what-are-tidy-data" id="toc-what-are-tidy-data" class="nav-link active" data-scroll-target="#what-are-tidy-data">What are Tidy Data?</a></li>
+<li><a href="#penguins-example-data" id="toc-penguins-example-data" class="nav-link" data-scroll-target="#penguins-example-data">Penguins Example Data</a></li>
+<li><a href="#selecting-columns" id="toc-selecting-columns" class="nav-link" data-scroll-target="#selecting-columns">Selecting columns</a>
+<ul class="collapse">
+<li><a href="#example-select" id="toc-example-select" class="nav-link" data-scroll-target="#example-select">Example: Select</a></li>
+<li><a href="#example-selecting-columns-with-helper-functions" id="toc-example-selecting-columns-with-helper-functions" class="nav-link" data-scroll-target="#example-selecting-columns-with-helper-functions">Example: Selecting columns with helper functions</a></li>
+</ul></li>
+<li><a href="#subsetting-rows" id="toc-subsetting-rows" class="nav-link" data-scroll-target="#subsetting-rows">Subsetting rows</a></li>
+<li><a href="#making-new-columns" id="toc-making-new-columns" class="nav-link" data-scroll-target="#making-new-columns">Making new columns</a>
+<ul class="collapse">
+<li><a href="#example-mutate" id="toc-example-mutate" class="nav-link" data-scroll-target="#example-mutate">Example: Mutate</a></li>
+<li><a href="#example-case-when" id="toc-example-case-when" class="nav-link" data-scroll-target="#example-case-when">Example: Case When</a></li>
+</ul></li>
+<li><a href="#splitting-cells" id="toc-splitting-cells" class="nav-link" data-scroll-target="#splitting-cells">Splitting cells</a>
+<ul class="collapse">
+<li><a href="#example-separate" id="toc-example-separate" class="nav-link" data-scroll-target="#example-separate">Example: Separate</a></li>
+</ul></li>
+</ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/NCEAS/scicomp-workshop-tidyverse/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-
 <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Wrangle</h1>
-</div>
 
-
-
-<div class="quarto-title-meta">
-
-    
-    
-  </div>
-  
-
-</header>
+<div class="quarto-title"><h1 class="title display-7">Wrangle</h1></div></header>
 
 <div class="cell">
 
 </div>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="what-are-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-tidy-data">What are Tidy Data?</h2>
 <p><img src="images/nceas_logo_square.png" align="right" width="15%"></p>
-<p>What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and maybe add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. <code>dplyr</code> and <code>tidyr</code> are two R packages from the <code>tidyverse</code> that provide a fairly complete and extremely powerful set of functions for us to do this reformatting quickly. Here we introduce some commonly used functions from these two packages.</p>
+<p>What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. <code>dplyr</code> and <code>tidyr</code> are two R packages from the <code>tidyverse</code> that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.</p>
 </section>
-<section id="our-data" class="level2">
-<h2 class="anchored" data-anchor-id="our-data">Our Data</h2>
-<p>The data we’ll be using for this workshop comes from the <code>palmerpenguins</code> package, maintained by <a href="ahorst@ucsb.edu">Allison Horst</a>. The “penguins” dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr.&nbsp;Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let’s take a look at it.</p>
+<section id="penguins-example-data" class="level2">
+<h2 class="anchored" data-anchor-id="penguins-example-data">Penguins Example Data</h2>
+<p>The data we’ll be using for this workshop comes from the <code>palmerpenguins</code> package, maintained by <a href="ahorst@ucsb.edu">Allison Horst</a>. The “penguins” dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr.&nbsp;Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let’s take a look at it!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 344 × 8
-   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
- 1 Adelie  Torgersen           39.1          18.7               181        3750
- 2 Adelie  Torgersen           39.5          17.4               186        3800
- 3 Adelie  Torgersen           40.3          18                 195        3250
- 4 Adelie  Torgersen           NA            NA                  NA          NA
- 5 Adelie  Torgersen           36.7          19.3               193        3450
- 6 Adelie  Torgersen           39.3          20.6               190        3650
- 7 Adelie  Torgersen           38.9          17.8               181        3625
- 8 Adelie  Torgersen           39.2          19.6               195        4675
- 9 Adelie  Torgersen           34.1          18.1               193        3475
-10 Adelie  Torgersen           42            20.2               190        4250
-# … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+   species island    bill_length_mm bill_depth_mm flipper_…¹ body_…² sex    year
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7        181    3750 male   2007
+ 2 Adelie  Torgersen           39.5          17.4        186    3800 fema…  2007
+ 3 Adelie  Torgersen           40.3          18          195    3250 fema…  2007
+ 4 Adelie  Torgersen           NA            NA           NA      NA &lt;NA&gt;   2007
+ 5 Adelie  Torgersen           36.7          19.3        193    3450 fema…  2007
+ 6 Adelie  Torgersen           39.3          20.6        190    3650 male   2007
+ 7 Adelie  Torgersen           38.9          17.8        181    3625 fema…  2007
+ 8 Adelie  Torgersen           39.2          19.6        195    4675 male   2007
+ 9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
+10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
+# … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
+#   ²​body_mass_g
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
 </div>
 <p>The “penguins” dataset has 344 rows and 8 columns.</p>
@@ -262,21 +243,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>body_mass_g</code>: an integer denoting body mass (grams)</p>
 <p><code>sex</code>: a factor denoting penguin sex (female, male)</p>
 <p><code>year</code>: an integer denoting the study year (2007, 2008, or 2009)</p>
-<p>This dataset is an example of <strong>tidy data</strong>, which means that each <strong>variable</strong> is in its own <strong>column</strong> and each <strong>observation</strong> is in its own row. Generally speaking, <code>dplyr</code> functions expect tidy data. So what happens when data isn’t tidy? Well, <code>tidyr</code> has some handy functions for reshaping your data into tidy data (more on this later).</p>
+<p>This dataset is an example of <strong>tidy data</strong>, which means that each <strong>variable</strong> is in its own <strong>column</strong> and each <strong>observation</strong> is in its own <strong>row</strong>. Generally speaking, functions from packages in the <code>tidyverse</code> expect tidy data though they can be used in some cases to help get data into tidy format! Regardless, the penguins dataset is what we’ll use for all examples in this workshop so be sure that you install the <code>palmerpenguins</code> R package.</p>
 </section>
 <section id="selecting-columns" class="level2">
 <h2 class="anchored" data-anchor-id="selecting-columns">Selecting columns</h2>
-<p>To start off, how do we do a basic action like selecting the columns we want? <code>dplyr</code>’s <code>select</code> function provides us with an easy way to do just that. We only need to provide the column names!</p>
+<p>To start off, how do we do a fundamental action like selecting the columns we want? <code>dplyr</code>’s <code>select</code> function provides us with a straightforward way to do just that. We only need to provide the column names!</p>
+<p><img src="images/wrangle-select.png" align="center" width="75%"></p>
 <section id="example-select" class="level3">
 <h3 class="anchored" data-anchor-id="example-select">Example: Select</h3>
-<p>For example, to select only the <code>species</code>, <code>island</code>, and <code>body_mass_g</code> columns, we can do:</p>
+<p>For example, to select only the <code>species</code>, <code>island</code>, and <code>body_mass_g</code> columns, we can use the following code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provide the name of the data and then the columns that you want!</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                             species, island, body_mass_g)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at our final product</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, species, island, body_mass_g)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   species island    body_mass_g
@@ -292,11 +273,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If we want to remove specific columns, we can use the <code>-</code> operator.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put a "-" in front of each column you would like to remove from your dataframe</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                             <span class="sc">-</span>flipper_length_mm, <span class="sc">-</span>sex)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at our final product</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, <span class="sc">-</span>flipper_length_mm, <span class="sc">-</span>sex)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 6
   species island    bill_length_mm bill_depth_mm body_mass_g  year
@@ -312,14 +292,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="example-selecting-columns-with-helper-functions" class="level3">
 <h3 class="anchored" data-anchor-id="example-selecting-columns-with-helper-functions">Example: Selecting columns with helper functions</h3>
-<p>If we want to select the columns that contains length measurements, we can manually type <code>bill_length_mm</code> and <code>flipper_length_mm</code>, but there’s actually an easier way using the <code>contains()</code> helper function. Enter a string that matches what you’re looking for among the column names.</p>
+<p>If we want to select the columns that contain length measurements, we can manually type <code>bill_length_mm</code> and <code>flipper_length_mm</code>, but there’s actually an easier way using the <code>contains()</code> function, also from the <code>dplyr</code> package. Enter a string that matches what you’re looking for among the column names.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter a matching string</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">contains</span>(<span class="st">"length"</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at our final product</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter a matching string inside of a `select` call</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, dplyr<span class="sc">::</span><span class="fu">contains</span>(<span class="st">"length"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   bill_length_mm flipper_length_mm
@@ -332,14 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6           39.3               190</code></pre>
 </div>
 </div>
-<p>In addition to <code>contains()</code>, <code>starts_with()</code> and <code>ends_with()</code> are also two other helper functions that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in “mm”…</p>
+<p>In addition to <code>contains()</code>, <code>starts_with()</code> and <code>ends_with()</code> are also two other helper functions–also from the <code>dplyr</code> package–that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in “mm”…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter a matching string</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ends_with</span>(<span class="st">"mm"</span>))</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at our final product</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter a string that matches the end of the column names</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, dplyr<span class="sc">::</span><span class="fu">ends_with</span>(<span class="st">"_mm"</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   bill_length_mm bill_depth_mm flipper_length_mm
@@ -372,14 +350,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6 Adelie  Torgersen           39.3          20.6               190        3650</code></pre>
 </div>
 </div>
-<p>These helper functions make it easy and convenient to select multiple columns at once, which is especially useful if you have a big dataframe.</p>
+<p>These helper functions make it convenient to select multiple columns at once, which is especially useful if you have a big dataframe and don’t want to exhaustively list every column name.</p>
 </section>
 </section>
-<section id="filtering-rows" class="level2">
-<h2 class="anchored" data-anchor-id="filtering-rows">Filtering rows</h2>
+<section id="subsetting-rows" class="level2">
+<h2 class="anchored" data-anchor-id="subsetting-rows">Subsetting rows</h2>
+<p><img src="images/wrangle-filter.png" align="center" width="25%"></p>
 </section>
 <section id="making-new-columns" class="level2">
 <h2 class="anchored" data-anchor-id="making-new-columns">Making new columns</h2>
+<p><img src="images/wrangle-mutate.png" align="center" width="50%"></p>
 <section id="example-mutate" class="level3">
 <h3 class="anchored" data-anchor-id="example-mutate">Example: Mutate</h3>
 </section>
@@ -393,11 +373,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="example-separate">Example: Separate</h3>
 
 
-</section>
-</section>
 
+</section>
+</section>
 </main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+<script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const disableStylesheet = (stylesheets) => {
     for (let i=0; i < stylesheets.length; i++) {
@@ -515,10 +495,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
     setTimeout(function() {
-      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -593,7 +570,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="nav-footer-center">Copyright 2022, NCEAS</div>
   </div>
 </footer>
-
 
 
 </body></html>

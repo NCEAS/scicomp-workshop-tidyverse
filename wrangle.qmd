@@ -6,15 +6,15 @@ title: "Wrangle"
 library(tidyverse); library(palmerpenguins)
 ```
 
-## Introduction
+## What are Tidy Data?
 
 <img src="images/nceas_logo_square.png" align="right" width="15%"/>
 
-What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and maybe add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do this reformatting quickly. Here we introduce some commonly used functions from these two packages.
+What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.
 
-## Our Data
+## Penguins Example Data
 
-The data we'll be using for this workshop comes from the `palmerpenguins` package, maintained by [Allison Horst](ahorst@ucsb.edu). The "penguins" dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let's take a look at it.
+The data we'll be using for this workshop comes from the `palmerpenguins` package, maintained by [Allison Horst](ahorst@ucsb.edu). The "penguins" dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let's take a look at it!
 
 ```{r}
 penguins
@@ -40,22 +40,23 @@ The columns are as follows:
 
 `year`: an integer denoting the study year (2007, 2008, or 2009)
 
-This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own row. Generally speaking, `dplyr` functions expect tidy data. So what happens when data isn't tidy? Well, `tidyr` has some handy functions for reshaping your data into tidy data (more on this later).
+This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own **row**. Generally speaking, functions from packages in the `tidyverse` expect tidy data though they can be used in some cases to help get data into tidy format! Regardless, the penguins dataset is what we'll use for all examples in this workshop so be sure that you install the `palmerpenguins` R package.
 
 ## Selecting columns
 
-To start off, how do we do a basic action like selecting the columns we want? `dplyr`'s `select` function provides us with an easy way to do just that. We only need to provide the column names! 
+To start off, how do we do a fundamental action like selecting the columns we want? `dplyr`'s `select` function provides us with a straightforward way to do just that. We only need to provide the column names! 
+
+<img src="images/wrangle-select.png" align="center" width="75%" />
 
 ### Example: Select
 
-For example, to select only the `species`, `island`, and `body_mass_g` columns, we can do:
+For example, to select only the `species`, `island`, and `body_mass_g` columns, we can use the following code:
 
 ```{r}
 # Provide the name of the data and then the columns that you want!
-penguins_v1 <- dplyr::select(.data = penguins,
-                             species, island, body_mass_g)
+penguins_v1 <- dplyr::select(.data = penguins, species, island, body_mass_g)
 
-# Look at our final product
+# Look at the product
 head(penguins_v1)
 ```
 
@@ -63,34 +64,31 @@ If we want to remove specific columns, we can use the `-` operator.
 
 ```{r}
 # Put a "-" in front of each column you would like to remove from your dataframe
-penguins_v1 <- dplyr::select(.data = penguins,
-                             -flipper_length_mm, -sex)
+penguins_v1 <- dplyr::select(.data = penguins, -flipper_length_mm, -sex)
 
-# Look at our final product
+# Look at the product
 head(penguins_v1)
 ```
 
 ### Example: Selecting columns with helper functions
 
-If we want to select the columns that contains length measurements, we can manually type `bill_length_mm` and `flipper_length_mm`, but there's actually an easier way using the `contains()` helper function. Enter a string that matches what you're looking for among the column names.   
+If we want to select the columns that contain length measurements, we can manually type `bill_length_mm` and `flipper_length_mm`, but there's actually an easier way using the `contains()` function, also from the `dplyr` package. Enter a string that matches what you're looking for among the column names.
 
 ```{r}
-# Enter a matching string
-penguins_v1 <- dplyr::select(.data = penguins,
-                             contains("length"))
+# Enter a matching string inside of a `select` call
+penguins_v1 <- dplyr::select(.data = penguins, dplyr::contains("length"))
 
-# Look at our final product
+# Look at the product
 head(penguins_v1)
 ```
 
-In addition to `contains()`, `starts_with()` and `ends_with()` are also two other helper functions that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in "mm"...
+In addition to `contains()`, `starts_with()` and `ends_with()` are also two other helper functions--also from the `dplyr` package--that allow you to select columns that starts with or ends with a certain string! For example, if we wanted all the columns that end in "mm"...
 
 ```{r}
-# Enter a matching string
-penguins_v1 <- dplyr::select(.data = penguins,
-                             ends_with("mm"))
+# Enter a string that matches the end of the column names
+penguins_v1 <- dplyr::select(.data = penguins, dplyr::ends_with("_mm"))
 
-# Look at our final product
+# Look at the product
 head(penguins_v1)
 ```
 
@@ -105,11 +103,15 @@ penguins_v1 <- dplyr::select(.data = penguins,
 head(penguins_v1)
 ```
 
-These helper functions make it easy and convenient to select multiple columns at once, which is especially useful if you have a big dataframe. 
+These helper functions make it convenient to select multiple columns at once, which is especially useful if you have a big dataframe and don't want to exhaustively list every column name. 
 
-## Filtering rows
+## Subsetting rows
+
+<img src="images/wrangle-filter.png" align="center" width="25%" />
 
 ## Making new columns 
+
+<img src="images/wrangle-mutate.png" align="center" width="50%" />
 
 ### Example: Mutate
 
