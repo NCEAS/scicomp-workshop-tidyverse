@@ -40,7 +40,7 @@ The columns are as follows:
 
 `year`: an integer denoting the study year (2007, 2008, or 2009)
 
-This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own **row**. Generally speaking, functions from packages in the `tidyverse` expect tidy data though they can be used in some cases to help get data into tidy format! Regardless, the penguins dataset is what we'll use for all examples in this workshop so be sure that you install the `palmerpenguins` R package.
+This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own **row**. Generally speaking, functions from packages in the `tidyverse` expect tidy data though they can be used in some cases to help get data into tidy format! Regardless, the penguins dataset is what we'll use for all examples in this workshop so be sure that you install the `palmerpenguins` R package. The examples on this page were adapted from [Allison Horst's `dplyr` tutorial](https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome)!
 
 ## Selecting columns
 
@@ -285,7 +285,7 @@ Try to see if you can add a new column called `size_bin` that contains:
 
 ## Splitting and uniting cells
 
-Another common task in data wrangling involves splitting or combining cells into individual values. To demonstrate, let's first make a new column that contains the full scientific names for these penguins using `case_when`. 
+Another common task in data wrangling involves splitting or combining cells into individual values. To demonstrate, let's first make a new column that contains the full scientific names for these penguins using `case_when`.
 
 ```{r}
 # Enter your conditions on the left side and the values on the right side of the tilde
