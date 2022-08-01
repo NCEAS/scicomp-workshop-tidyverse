@@ -24,7 +24,7 @@ penguins_left_dataframe <- penguins %>%
 knitr::kable(head(penguins_left_dataframe))
 ```
 
-The `palmer_penguins` package also has a "penguins_raw" dataset with additional, raw information on the same penguins, such as their sampling region, unique identifier, and the date when their nest was observed. Again, for demonstration purposes, let's add a new column called `record_number` and call this new dataframe `penguins_right_dataframe`.  
+The `palmerpenguins` package also has a "penguins_raw" dataset with additional, raw information on the same penguins, such as their sampling region, unique identifier, and the date when their nest was observed. Again, for demonstration purposes, let's add a new column called `record_number` and call this new dataframe `penguins_right_dataframe`.  
 
 ```{r}
 # Add a column called `record_number` to our raw penguins dataset
