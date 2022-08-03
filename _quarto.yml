@@ -4,7 +4,7 @@ project:
   output-dir: docs
 
 execute:
-  freeze: false
+  freeze: true
 
 website:
   title: "NCEAS Sci Comp Workshop - Tidyverse"
