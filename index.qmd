@@ -20,7 +20,7 @@ To maximize the value of this workshop to you, we recommend that you take the fo
 
 If you already have R, check that you have at least version 4.0.0 by running the following code:
 
-```{r, eval = F}
+```{r check-r-version, eval = F}
 version$version.string
 ```
 
@@ -30,7 +30,7 @@ If your version starts with a 3 (e.g., the above code returns "R version 3..."),
 
 **Install the `tidyverse` and `palmerpenguins` R packages** using the following code:
 
-```{r, eval = F}
+```{r install-packages, eval = F}
 install.packages("tidyverse", "palmerpenguins")
 library(tidyverse)
 library(palmerpenguins)
@@ -43,6 +43,8 @@ library(palmerpenguins)
 ### Supplemental Material
 
 While not technically necessary to attend the workshop, if you'd like you can see the content that created the workshop website you are viewing by visiting our [GitHub repository here](https://github.com/NCEAS/scicomp-workshop-tidyverse).
+
+Also, check out NCEAS' [Learning Hub](https://www.nceas.ucsb.edu/learning-hub) for a complete list of workshops and trainings offered by NCEAS.
 
 ## Penguin Data
 
