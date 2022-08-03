@@ -10,7 +10,7 @@ This workshop provides an overview of many of the packages included in the `tidy
 
 <img src = "images/hex_tidyverse.png" align = "right" width = "17%" />
 
-To maximize the value of this workshop to you, **we recommend you take the following steps before the day of the workshop**. If anything is unclear, feel free to reach out to us; our contact information can be found in the "[Content Creators](about.qmd)" tab.
+To maximize the value of this workshop to you, we recommend that you take the following steps **before the day of the workshop**. If anything is unclear, feel free to reach out to us; our contact information can be found in the "[Content Creators](about.qmd)" tab.
 
 ## Programs to Install
 
@@ -43,3 +43,37 @@ library(palmerpenguins)
 ### Supplemental Material
 
 While not technically necessary to attend the workshop, if you'd like you can see the content that created the workshop website you are viewing by visiting our [GitHub repository here](https://github.com/NCEAS/scicomp-workshop-tidyverse).
+
+## Penguin Data
+
+The data we'll be using for this workshop comes from the `palmerpenguins` package, maintained by [Allison Horst](ahorst@ucsb.edu). The "penguins" dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let's take a look at it!
+
+```{r libraries-index, echo = F, message = F}
+library(tidyverse); library(palmerpenguins)
+```
+
+```{r penguin-data}
+penguins
+```
+
+The "penguins" dataset has 344 rows and 8 columns.
+
+The columns are as follows:
+
+`species`: a factor denoting penguin species (Adélie, Chinstrap and Gentoo)
+
+`island`: a factor denoting island in Palmer Archipelago, Antarctica (Biscoe, Dream or Torgersen)
+
+`bill_length_mm`: a number denoting bill length (millimeters)
+
+`bill_depth_mm`: a number denoting bill depth (millimeters)
+
+`flipper_length_mm`: an integer denoting flipper length (millimeters)
+
+`body_mass_g`: an integer denoting body mass (grams)
+
+`sex`: a factor denoting penguin sex (female, male)
+
+`year`: an integer denoting the study year (2007, 2008, or 2009)
+
+This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own **row**. Generally speaking, functions from packages in the `tidyverse` expect tidy data though they can be used in some cases to help get data into tidy format! Regardless, the penguins dataset is what we'll use for all examples in this workshop so be sure that you install the `palmerpenguins` R package. The examples on this page were adapted from [Allison Horst's `dplyr` tutorial](https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome)!
