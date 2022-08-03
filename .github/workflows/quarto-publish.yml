@@ -32,10 +32,7 @@ jobs:
           install.packages("knitr")
           install.packages("dplyr")
           install.packages("tidyr")
-        shell: Rscript {0}
-
-      - name: Install package
-        run: R CMD INSTALL .          
+        shell: Rscript {0}        
           
       # To publish to Netlify, RStudio Connect, or GitHub Pages, uncomment
       # the appropriate block below
