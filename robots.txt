@@ -1,1 +1,1 @@
-Sitemap: https://NCEAS.github.io/scicomp-workshop-tidyverse/sitemap.xml
+Sitemap: https://github.com/NCEAS/scicomp-workshop-tidyverse/sitemap.xml
