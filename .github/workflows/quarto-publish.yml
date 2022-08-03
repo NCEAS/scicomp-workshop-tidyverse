@@ -27,13 +27,11 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages("remotes")
-          remotes::install_deps(dependencies = TRUE)
           install.packages("palmerpenguins")
           install.packages("here")
           install.packages("knitr")
           install.packages("dplyr")
           install.packages("tidyr")
-          install.packages("quarto")
         shell: Rscript {0}
 
       - name: Install package
