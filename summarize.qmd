@@ -84,7 +84,7 @@ penguins %>%
   # Group by the desired column names
   dplyr::group_by(species, island) %>%
   # And summarize in the way we desire
-  dplyr::summarise(
+  dplyr::summarize(
     # Get average body mass
     mean_mass_g = mean(body_mass_g, na.rm = TRUE),
     # Get the standard deviation
@@ -92,7 +92,7 @@ penguins %>%
     # Count the number of individual penguins of each species at each island
     n_mass = dplyr::n(),
     # Calculate standard error from SD divided by count
-    se_mass = sd_mass / n_mass )
+    se_mass = sd_mass / sqrt(n_mass) )
 ```
 
 You can see that we also invoked the `n` function from `dplyr` to return the size of each group. This function reads any groups created by `group_by` and returns the count of rows in the dataframe for each group level.
