@@ -339,7 +339,7 @@ Example
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by the desired column names</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And summarize in the way we desire</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get average body mass</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_mass_g =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the standard deviation</span></span>
@@ -347,17 +347,17 @@ Example
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of individual penguins of each species at each island</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_mass =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate standard error from SD divided by count</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_mass =</span> sd_mass <span class="sc">/</span> n_mass )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_mass =</span> sd_mass <span class="sc">/</span> <span class="fu">sqrt</span>(n_mass) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 6
 # Groups:   species [3]
   species   island    mean_mass_g sd_mass n_mass se_mass
   &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;
-1 Adelie    Biscoe          3710.    488.     44   11.1 
-2 Adelie    Dream           3688.    455.     56    8.13
-3 Adelie    Torgersen       3706.    445.     52    8.56
-4 Chinstrap Dream           3733.    384.     68    5.65
-5 Gentoo    Biscoe          5076.    504.    124    4.07</code></pre>
+1 Adelie    Biscoe          3710.    488.     44    73.5
+2 Adelie    Dream           3688.    455.     56    60.8
+3 Adelie    Torgersen       3706.    445.     52    61.7
+4 Chinstrap Dream           3733.    384.     68    46.6
+5 Gentoo    Biscoe          5076.    504.    124    45.3</code></pre>
 </div>
 </div>
 <p>You can see that we also invoked the <code>n</code> function from <code>dplyr</code> to return the size of each group. This function reads any groups created by <code>group_by</code> and returns the count of rows in the dataframe for each group level.</p>
