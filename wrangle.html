@@ -262,6 +262,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <h2 class="anchored" data-anchor-id="selecting-columns">Selecting Columns</h2>
 <p>To start off, how do we do a fundamental action like selecting the columns we want? <code>dplyr</code>’s <code>select</code> function provides us with a straightforward way to do just that. We only need to provide the column names!</p>
 <p><img src="images/wrangle-select.png" align="center" width="50%"></p>
+<p>Note that even if you <code>select</code> just one column, a dataframe will be returned. Whereas if you use the <code>$</code> operator you get a vector (e.g., <code>data$column</code> returns a vector, not a dataframe).</p>
 <section id="select-example-including-excluding" class="level3">
 <h3 class="anchored" data-anchor-id="select-example-including-excluding"><code>select</code> Example: Including &amp; Excluding</h3>
 <div class="callout-note callout callout-style-default callout-captioned">
