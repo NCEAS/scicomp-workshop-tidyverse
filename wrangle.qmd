@@ -7,8 +7,17 @@ title: "Wrangle"
 
 What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.
 
+We can use `glimpse` from the `dplyr` package to look at part of the data while also getting some relevant structural information (i.e., what type of data are in each column, etc.).
 
-## Selecting columns
+```{r libraries-wrangle, message = F}
+# install.packages("tidyverse", "palmerpenguins")
+library(tidyverse)
+library(palmerpenguins)
+
+dplyr::glimpse(penguins)
+```
+
+## Selecting Columns
 
 To start off, how do we do a fundamental action like selecting the columns we want? `dplyr`'s `select` function provides us with a straightforward way to do just that. We only need to provide the column names!
 
@@ -20,14 +29,6 @@ To start off, how do we do a fundamental action like selecting the columns we wa
 ## Example
 
 To select only the `species`, `island`, and `body_mass_g` columns, we can use the following code:
-
-```{r libraries-wrangle, message = F}
-# install.packages("tidyverse", "palmerpenguins")
-library(tidyverse)
-library(palmerpenguins)
-
-glimpse(penguins)
-```
 
 ```{r select-include}
 # Provide the name of the data and then the columns that you want!
@@ -82,8 +83,7 @@ head(penguins_selected)
 Conveniently selecting a range of columns can be especially useful when you have a big dataframe and don't want to exhaustively list every column by name.
 :::
 
-
-## Subsetting rows
+## Subsetting Rows
 
 Instead of selecting certain columns, how can we get a subset of rows that meet certain conditions? For example, in the diagram below, how can we filter for rows that contain a diamond shape? We can use `dplyr`'s handy `filter` function along with logical and boolean operators!
 
