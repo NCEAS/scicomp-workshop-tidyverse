@@ -21,9 +21,9 @@ For demonstration purposes, let's add a new column called `record_number` to our
 ```{r join-data-prep-1}
 # Add a column called `record_number` to our penguins dataset
 penguins_tidy <- penguins %>%
-    dplyr::mutate(record_number = 1:n())
+    dplyr::mutate(record_number = 1:n(), .before = dplyr::everything())
 
-head(penguins_tidy)
+dplyr::glimpse(penguins_tidy)
 ```
 
 The `palmerpenguins` package also has a "penguins_raw" dataset with additional, raw information on the same penguins, such as their sampling region, unique identifier, and the date when their nest was observed. Again, for demonstration purposes, let's add a new column called `record_number` and call this new dataframe `penguins_raw`.  
@@ -32,12 +32,15 @@ The `palmerpenguins` package also has a "penguins_raw" dataset with additional, 
 # Add a column called `record_number` to our raw penguins dataset
 penguins_raw <- penguins_raw %>%
   dplyr::mutate(record_number = 1:n()) %>%
+  # Also keep only desired columns to avoid unnecessary complexity
   dplyr::select(record_number, Region, `Individual ID`, `Date Egg`)
 
 head(penguins_raw)
 ```
 
 Now that we have two dataframes that both have a column called `record_number`, we can `join` them together to combine information in various ways!
+
+Also, note that if column names include spaces (as in `Individual ID` and `Date Egg`) they need to have a "backtick" (\`) on either side. On your keyboard, a backtick (\`) is on the left just below the "escape" key, and shares a button with the tilde (~).
 
 ### `left_join` Example: Prioritize the "Left" Dataframe
 
@@ -50,16 +53,18 @@ In a `left_join`, we bring the columns from the right dataframe that match rows 
 
 We can specify the column that we want to join based on with `by = ...`. If we don't provide this argument, then `dplyr` will automatically join on **all** matching columns between the left and right dataframes. In our case, we want to `left_join` by `record_number`.
 
+To better demonstrate that only rows found in the left dataframe will be joined from the right dataframe, we'll use the pipe `%>%` to `filter` the left dataframe before `join`ing. 
+
 ```{r left_join}
 # Left-join the two dataframes together on the shared column!
-penguins_left_joined <- dplyr::left_join(x = penguins_tidy,
-                                         y = penguins_raw,
-                                         by = "record_number")
+penguins_left_joined <- penguins_tidy %>%
+  dplyr::filter(record_number < 5) %>%
+  dplyr::left_join(y = penguins_raw, by = "record_number")
 
-head(penguins_left_joined)
+dplyr::glimpse(penguins_left_joined)
 ```
 
-What we have in the end is `penguins_left_joined`, a dataframe with information from both `penguins_tidy` and `penguins_raw`! *All* of the rows in `penguins_tidy` are kept but only the rows from `penguins_raw` that have a matching `record_number` in `penguins_tidy` are included.
+What we have in the end is `penguins_left_joined`, a dataframe with information from both `penguins_tidy` and `penguins_raw`! *All* of the rows in our `filter`ed `penguins_tidy` are kept but only the rows from `penguins_raw` that have a matching `record_number` in `penguins_tidy` are included.
 :::
 
 ### `right_join` Example: Prioritize the "Right" Dataframe
