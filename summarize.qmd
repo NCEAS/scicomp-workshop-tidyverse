@@ -56,6 +56,8 @@ Using pipes, `filter` the data to only include male penguins, `select` only the 
 
 ### Aside: Fun History of Why `%>%` is a "Pipe"
 
+<img src="images/magrittr_hex.png" align="right" width="15%"/>
+
 The Belgian painter René Magritte famously created a painting titled "[The Treachery of Images](https://collections.lacma.org/node/239578)" featuring a depiction of a smoking pipe above the words "*Cest ci n'est pas une pipe*" (French for "This is not a pipe"). Magritte's point was about how the depiction of a thing is not equal to thing itself. The `magrittr` package takes its name from the painter because it also includes a pipe that functions slightly differently from a command line pipe and uses different characters. Just like Magritte's pipe, `%>%` both is and isn't a pipe!
 
 ## Group-Wise Summarizing
@@ -76,9 +78,29 @@ Despite the similarity in syntax between `summarize` and `mutate` there are a fe
 :::callout-note
 ## Example
 
-Let's say we want to find some summary values for body mass of each species of penguin on each island. To accomplish this we can do the following:
+By using the `%>%` with `group_by` and `summarize`, we can calculate some summarized metric within our specified groups. To begin, let's find the average bill depth within each species of penguin.
 
-```{r group_by-summarize, message = F}
+```{r group_by-summarize-basic, message = F}
+# Begin with the data and a pipe
+penguins %>%
+  # Group by the desired column names
+  dplyr::group_by(species) %>%
+  # And summarize in the way we desire
+  dplyr::summarize(mean_bill_dep_mm = mean(bill_depth_mm, na.rm = TRUE) )
+```
+
+Notice how the resulting dataframe only contains one row per value in the `group_by` call and only includes the grouping column and the column we created (`mean_bill_dep_mm`)? This reduction in dimensions is an inherent property of `summarize` and can be intensely valuable but be careful you don't accidentally remove columns that you want!
+:::
+
+
+### `group_by` + `summarize` Example: Calculate Multiple Metrics
+
+:::callout-note
+## Example
+
+Let's say we want to find *multiple* summary values for body mass of each species of penguin on each island. To accomplish this we can do the following:
+
+```{r group_by-summarize-complex, message = F}
 # Begin with the data and a pipe
 penguins %>%
   # Group by the desired column names
@@ -96,6 +118,8 @@ penguins %>%
 ```
 
 You can see that we also invoked the `n` function from `dplyr` to return the size of each group. This function reads any groups created by `group_by` and returns the count of rows in the dataframe for each group level.
+
+Just like `mutate`, `summarize` will allow you to create as many columns as you want. So, if you want metrics calculated within your groups, you only need to define each of them within the `summarize` function.
 :::
 
 ### Challenge: `summarize`
