@@ -185,13 +185,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#what-are-tidy-data" id="toc-what-are-tidy-data" class="nav-link active" data-scroll-target="#what-are-tidy-data">What are Tidy Data?</a></li>
-  <li><a href="#selecting-columns" id="toc-selecting-columns" class="nav-link" data-scroll-target="#selecting-columns">Selecting columns</a>
+  <li><a href="#selecting-columns" id="toc-selecting-columns" class="nav-link" data-scroll-target="#selecting-columns">Selecting Columns</a>
   <ul class="collapse">
   <li><a href="#select-example-including-excluding" id="toc-select-example-including-excluding" class="nav-link" data-scroll-target="#select-example-including-excluding"><code>select</code> Example: Including &amp; Excluding</a></li>
   <li><a href="#select-example-selecting-with-helper-functions" id="toc-select-example-selecting-with-helper-functions" class="nav-link" data-scroll-target="#select-example-selecting-with-helper-functions"><code>select</code> Example: Selecting with Helper Functions</a></li>
   <li><a href="#select-example-selecting-a-range-of-columns" id="toc-select-example-selecting-a-range-of-columns" class="nav-link" data-scroll-target="#select-example-selecting-a-range-of-columns"><code>select</code> Example: Selecting a Range of Columns</a></li>
   </ul></li>
-  <li><a href="#subsetting-rows" id="toc-subsetting-rows" class="nav-link" data-scroll-target="#subsetting-rows">Subsetting rows</a>
+  <li><a href="#subsetting-rows" id="toc-subsetting-rows" class="nav-link" data-scroll-target="#subsetting-rows">Subsetting Rows</a>
   <ul class="collapse">
   <li><a href="#filter-example-exactly-equal" id="toc-filter-example-exactly-equal" class="nav-link" data-scroll-target="#filter-example-exactly-equal"><code>filter</code> Example: Exactly Equal</a></li>
   <li><a href="#filter-example-either-or" id="toc-filter-example-either-or" class="nav-link" data-scroll-target="#filter-example-either-or"><code>filter</code> Example: Either / Or</a></li>
@@ -237,9 +237,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="what-are-tidy-data" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-tidy-data">What are Tidy Data?</h2>
 <p>What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. <code>dplyr</code> and <code>tidyr</code> are two R packages from the <code>tidyverse</code> that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.</p>
+<p>We can use <code>glimpse</code> from the <code>dplyr</code> package to look at part of the data while also getting some relevant structural information (i.e., what type of data are in each column, etc.).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse", "palmerpenguins")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
 </section>
 <section id="selecting-columns" class="level2">
-<h2 class="anchored" data-anchor-id="selecting-columns">Selecting columns</h2>
+<h2 class="anchored" data-anchor-id="selecting-columns">Selecting Columns</h2>
 <p>To start off, how do we do a fundamental action like selecting the columns we want? <code>dplyr</code>’s <code>select</code> function provides us with a straightforward way to do just that. We only need to provide the column names!</p>
 <p><img src="images/wrangle-select.png" align="center" width="50%"></p>
 <section id="select-example-including-excluding" class="level3">
@@ -255,25 +275,6 @@ Example
 </div>
 <div class="callout-body-container callout-body">
 <p>To select only the <code>species</code>, <code>island</code>, and <code>body_mass_g</code> columns, we can use the following code:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse", "palmerpenguins")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 344
-Columns: 8
-$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
-$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
-$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
-$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
-$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
-$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
-$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
-$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
-</div>
-</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provide the name of the data and then the columns that you want!</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_selected <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, species, island, body_mass_g)</span>
@@ -385,7 +386,7 @@ Example
 </section>
 </section>
 <section id="subsetting-rows" class="level2">
-<h2 class="anchored" data-anchor-id="subsetting-rows">Subsetting rows</h2>
+<h2 class="anchored" data-anchor-id="subsetting-rows">Subsetting Rows</h2>
 <p>Instead of selecting certain columns, how can we get a subset of rows that meet certain conditions? For example, in the diagram below, how can we filter for rows that contain a diamond shape? We can use <code>dplyr</code>’s handy <code>filter</code> function along with logical and boolean operators!</p>
 <p><img src="images/wrangle-filter.png" align="center" width="25%"></p>
 <p>For reference, here are the operators we can use to specify our conditions with <code>filter</code>.</p>

@@ -193,6 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#group-wise-summarizing" id="toc-group-wise-summarizing" class="nav-link" data-scroll-target="#group-wise-summarizing">Group-Wise Summarizing</a>
   <ul class="collapse">
   <li><a href="#group_by-summarize-example-summarize-within-groups" id="toc-group_by-summarize-example-summarize-within-groups" class="nav-link" data-scroll-target="#group_by-summarize-example-summarize-within-groups"><code>group_by</code> + <code>summarize</code> Example: Summarize within Groups</a></li>
+  <li><a href="#group_by-summarize-example-calculate-multiple-metrics" id="toc-group_by-summarize-example-calculate-multiple-metrics" class="nav-link" data-scroll-target="#group_by-summarize-example-calculate-multiple-metrics"><code>group_by</code> + <code>summarize</code> Example: Calculate Multiple Metrics</a></li>
   <li><a href="#challenge-summarize" id="toc-challenge-summarize" class="nav-link" data-scroll-target="#challenge-summarize">Challenge: <code>summarize</code></a></li>
   </ul></li>
   <li><a href="#grouping-cautionary-note" id="toc-grouping-cautionary-note" class="nav-link" data-scroll-target="#grouping-cautionary-note">Grouping Cautionary Note</a></li>
@@ -307,6 +308,7 @@ Your Turn!
 </section>
 <section id="aside-fun-history-of-why-is-a-pipe" class="level3">
 <h3 class="anchored" data-anchor-id="aside-fun-history-of-why-is-a-pipe">Aside: Fun History of Why <code>%&gt;%</code> is a “Pipe”</h3>
+<p><img src="images/magrittr_hex.png" align="right" width="15%"></p>
 <p>The Belgian painter René Magritte famously created a painting titled “<a href="https://collections.lacma.org/node/239578">The Treachery of Images</a>” featuring a depiction of a smoking pipe above the words “<em>Cest ci n’est pas une pipe</em>” (French for “This is not a pipe”). Magritte’s point was about how the depiction of a thing is not equal to thing itself. The <code>magrittr</code> package takes its name from the painter because it also includes a pipe that functions slightly differently from a command line pipe and uses different characters. Just like Magritte’s pipe, <code>%&gt;%</code> both is and isn’t a pipe!</p>
 </section>
 </section>
@@ -332,22 +334,55 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let’s say we want to find some summary values for body mass of each species of penguin on each island. To accomplish this we can do the following:</p>
+<p>By using the <code>%&gt;%</code> with <code>group_by</code> and <code>summarize</code>, we can calculate some summarized metric within our specified groups. To begin, let’s find the average bill depth within each species of penguin.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin with the data and a pipe</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by the desired column names</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And summarize in the way we desire</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get average body mass</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_mass_g =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the standard deviation</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_mass =</span> <span class="fu">sd</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of individual penguins of each species at each island</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_mass =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate standard error from SD divided by count</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_mass =</span> sd_mass <span class="sc">/</span> <span class="fu">sqrt</span>(n_mass) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">mean_bill_dep_mm =</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  species   mean_bill_dep_mm
+  &lt;fct&gt;                &lt;dbl&gt;
+1 Adelie                18.3
+2 Chinstrap             18.4
+3 Gentoo                15.0</code></pre>
+</div>
+</div>
+<p>Notice how the resulting dataframe only contains one row per value in the <code>group_by</code> call and only includes the grouping column and the column we created (<code>mean_bill_dep_mm</code>)? This reduction in dimensions is an inherent property of <code>summarize</code> and can be intensely valuable but be careful you don’t accidentally remove columns that you want!</p>
+</div>
+</div>
+</section>
+<section id="group_by-summarize-example-calculate-multiple-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="group_by-summarize-example-calculate-multiple-metrics"><code>group_by</code> + <code>summarize</code> Example: Calculate Multiple Metrics</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s say we want to find <em>multiple</em> summary values for body mass of each species of penguin on each island. To accomplish this we can do the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin with the data and a pipe</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by the desired column names</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And summarize in the way we desire</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get average body mass</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_mass_g =</span> <span class="fu">mean</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the standard deviation</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_mass =</span> <span class="fu">sd</span>(body_mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the number of individual penguins of each species at each island</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_mass =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate standard error from SD divided by count</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_mass =</span> sd_mass <span class="sc">/</span> <span class="fu">sqrt</span>(n_mass) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 6
 # Groups:   species [3]
@@ -361,6 +396,7 @@ Example
 </div>
 </div>
 <p>You can see that we also invoked the <code>n</code> function from <code>dplyr</code> to return the size of each group. This function reads any groups created by <code>group_by</code> and returns the count of rows in the dataframe for each group level.</p>
+<p>Just like <code>mutate</code>, <code>summarize</code> will allow you to create as many columns as you want. So, if you want metrics calculated within your groups, you only need to define each of them within the <code>summarize</code> function.</p>
 </div>
 </div>
 </section>
@@ -386,9 +422,9 @@ Your Turn!
 <p><code>group_by</code> can be extremely useful in summarizing a dataframe or creating a new column without losing rows but you need to be careful. Objects created with <code>group_by</code> “remember” their groups until you change the groups or use the function <code>ungroup</code> from <code>dplyr</code>.</p>
 <p>Look at how the output of a grouped data object tells you the number of groups in the output (see beneath this code chunk).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">penguins_count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">penguins_count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
 # Groups:   species [3]
@@ -403,10 +439,10 @@ Your Turn!
 </div>
 <p>This means that all future uses of that pipe will continue to use the grouping established to create the “penguins_count” column. We can stop this by doing the same pipe, but adding <code>ungroup</code> after we’re done using the grouping established by <code>group_by</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">penguins_count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species, island) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">penguins_count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   species   island    penguins_count
