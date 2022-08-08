@@ -23,6 +23,8 @@ To start off, how do we do a fundamental action like selecting the columns we wa
 
 <img src="images/wrangle-select.png" align="center" width="50%"/>
 
+Note that even if you `select` just one column, a dataframe will be returned. Whereas if you use the `$` operator you get a vector (e.g., `data$column` returns a vector, not a dataframe).
+
 ### `select` Example: Including & Excluding
 
 ::: callout-note 
