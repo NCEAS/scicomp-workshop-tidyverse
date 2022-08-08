@@ -2,13 +2,11 @@
 title: "Wrangle"
 ---
 
-```{r libraries-wrangle, echo = F, message = F}
-library(tidyverse); library(palmerpenguins)
-```
 
 ## What are Tidy Data?
 
 What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.
+
 
 ## Selecting columns
 
@@ -22,6 +20,14 @@ To start off, how do we do a fundamental action like selecting the columns we wa
 ## Example
 
 To select only the `species`, `island`, and `body_mass_g` columns, we can use the following code:
+
+```{r libraries-wrangle, message = F}
+# install.packages("tidyverse", "palmerpenguins")
+library(tidyverse)
+library(palmerpenguins)
+
+glimpse(penguins)
+```
 
 ```{r select-include}
 # Provide the name of the data and then the columns that you want!
@@ -75,6 +81,7 @@ head(penguins_selected)
 
 Conveniently selecting a range of columns can be especially useful when you have a big dataframe and don't want to exhaustively list every column by name.
 :::
+
 
 ## Subsetting rows
 
@@ -191,6 +198,7 @@ head(penguins_filtered)
 Using `filter`, how would you get all of the rows that **do not** have any `NA` values in the `sex` column?
 :::
 
+
 ## Making and Modifying Columns
 
 Aside from selecting columns and subsetting rows, we may want to create new columns in our data. For instance, in the diagram below, we have a dataframe that only contains column A, and then we add new columns B and C. We can use `dplyr`'s `mutate` function to add a new column, while keeping the existing columns.
@@ -238,6 +246,7 @@ class(penguins_mutated$island)
 
 Now `island` is a character column!
 :::
+
 
 ### Conditional Operations
 
