@@ -2,9 +2,7 @@
 title: "Wrangle"
 ---
 
-```{r libraries-wrangle, echo = F, message = F}
-library(tidyverse); library(palmerpenguins)
-```
+
 
 ## What are Tidy Data?
 
@@ -23,7 +21,11 @@ To start off, how do we do a fundamental action like selecting the columns we wa
 
 To select only the `species`, `island`, and `body_mass_g` columns, we can use the following code:
 
-```{r select-include}
+```{r select-include,  message = F}
+
+library(tidyverse)
+library(palmerpenguins)
+
 # Provide the name of the data and then the columns that you want!
 penguins_selected <- dplyr::select(.data = penguins, species, island, body_mass_g)
 
