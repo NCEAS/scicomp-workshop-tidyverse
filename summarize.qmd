@@ -28,7 +28,7 @@ penguins_v3 <- dplyr::select(.data = penguins_v2,
                              -flipper_length_mm, -body_mass_g)
 
 # And we can look at our final product with `base::head`
-head(penguins_v3)
+dplyr::glimpse(penguins_v3)
 ```
 
 Using the pipe though we can simplify this code dramatically! Note that each of the following lines must end with the `%>%` so that R knows there are more lines to consider.
@@ -39,11 +39,11 @@ penguins %>%
   dplyr::filter(!is.na(bill_length_mm) & !is.na(bill_depth_mm)) %>%
   # And strip away the columns we don't want
   dplyr::select(-flipper_length_mm, -body_mass_g) %>%
-  # And we can even include the `head` argument to see our progress
-  head()
+  # And we can even include the `glimpse` function to see our progress
+  dplyr::glimpse()
 ```
 
-Note that using the pipe allows each line to inherit the data provided by the previous line.
+Note that using the pipe allows each line to inherit the data created by the previous line.
 :::
 
 ### Challenge: `%>%`
@@ -91,7 +91,6 @@ penguins %>%
 
 Notice how the resulting dataframe only contains one row per value in the `group_by` call and only includes the grouping column and the column we created (`mean_bill_dep_mm`)? This reduction in dimensions is an inherent property of `summarize` and can be intensely valuable but be careful you don't accidentally remove columns that you want!
 :::
-
 
 ### `group_by` + `summarize` Example: Calculate Multiple Metrics
 
