@@ -249,25 +249,22 @@ $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, 
 $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
 </div>
 </div>
-<p>The <code>palmerpenguins</code> package also has a “penguins_raw” dataset with additional, raw information on the same penguins, such as their sampling region, unique identifier, and the date when their nest was observed. Again, for demonstration purposes, let’s add a new column called <code>record_number</code> and call this new dataframe <code>penguins_raw</code>.</p>
+<p>The <code>palmerpenguins</code> package also has a “penguins_raw” dataset with additional, raw information on the same penguins, such as their sampling region, unique identifier, and the date when their nest was observed. Again, for demonstration purposes, let’s add a new column called <code>record_number</code> and call this new dataframe <code>penguins_extra</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column called `record_number` to our raw penguins dataset</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_raw <span class="ot">&lt;-</span> penguins_raw <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_extra <span class="ot">&lt;-</span> penguins_raw <span class="sc">%&gt;%</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">record_number =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Also keep only desired columns to avoid unnecessary complexity</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(record_number, Region, <span class="st">`</span><span class="at">Individual ID</span><span class="st">`</span>, <span class="st">`</span><span class="at">Date Egg</span><span class="st">`</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_extra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  record_number Region `Individual ID` `Date Egg`
-          &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;           &lt;date&gt;    
-1             1 Anvers N1A1            2007-11-11
-2             2 Anvers N1A2            2007-11-11
-3             3 Anvers N2A1            2007-11-16
-4             4 Anvers N2A2            2007-11-16
-5             5 Anvers N3A1            2007-11-16
-6             6 Anvers N3A2            2007-11-16</code></pre>
+<pre><code>Rows: 344
+Columns: 4
+$ record_number   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…
+$ Region          &lt;chr&gt; "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "Anv…
+$ `Individual ID` &lt;chr&gt; "N1A1", "N1A2", "N2A1", "N2A2", "N3A1", "N3A2", "N4A1"…
+$ `Date Egg`      &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 2007-…</code></pre>
 </div>
 </div>
 <p>Now that we have two dataframes that both have a column called <code>record_number</code>, we can <code>join</code> them together to combine information in various ways!</p>
@@ -293,7 +290,7 @@ Example
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Left-join the two dataframes together on the shared column!</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>penguins_left_joined <span class="ot">&lt;-</span> penguins_tidy <span class="sc">%&gt;%</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(record_number <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(<span class="at">y =</span> penguins_raw, <span class="at">by =</span> <span class="st">"record_number"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(<span class="at">y =</span> penguins_extra, <span class="at">by =</span> <span class="st">"record_number"</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_left_joined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -313,7 +310,7 @@ $ `Individual ID`   &lt;chr&gt; "N1A1", "N1A2", "N2A1", "N2A2"
 $ `Date Egg`        &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16</code></pre>
 </div>
 </div>
-<p>What we have in the end is <code>penguins_left_joined</code>, a dataframe with information from both <code>penguins_tidy</code> and <code>penguins_raw</code>! <em>All</em> of the rows in our <code>filter</code>ed <code>penguins_tidy</code> are kept but only the rows from <code>penguins_raw</code> that have a matching <code>record_number</code> in <code>penguins_tidy</code> are included.</p>
+<p>What we have in the end is <code>penguins_left_joined</code>, a dataframe with information from both <code>penguins_tidy</code> and <code>penguins_extra</code>! <em>All</em> of the rows in our <code>filter</code>ed <code>penguins_tidy</code> are kept but only the rows from <code>penguins_extra</code> that have a matching <code>record_number</code> in <code>penguins_tidy</code> are included.</p>
 </div>
 </div>
 </section>

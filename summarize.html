@@ -251,17 +251,16 @@ Example
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                             <span class="sc">-</span>flipper_length_mm, <span class="sc">-</span>body_mass_g)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># And we can look at our final product with `base::head`</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_v3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-  species island    bill_length_mm bill_depth_mm sex     year
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;  &lt;int&gt;
-1 Adelie  Torgersen           39.1          18.7 male    2007
-2 Adelie  Torgersen           39.5          17.4 female  2007
-3 Adelie  Torgersen           40.3          18   female  2007
-4 Adelie  Torgersen           36.7          19.3 female  2007
-5 Adelie  Torgersen           39.3          20.6 male    2007
-6 Adelie  Torgersen           38.9          17.8 female  2007</code></pre>
+<pre><code>Rows: 342
+Columns: 6
+$ species        &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie,…
+$ island         &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, …
+$ bill_length_mm &lt;dbl&gt; 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 3…
+$ bill_depth_mm  &lt;dbl&gt; 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 1…
+$ sex            &lt;fct&gt; male, female, female, female, male, female, male, NA, N…
+$ year           &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…</code></pre>
 </div>
 </div>
 <p>Using the pipe though we can simplify this code dramatically! Note that each of the following lines must end with the <code>%&gt;%</code> so that R knows there are more lines to consider.</p>
@@ -272,21 +271,20 @@ Example
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bill_length_mm) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(bill_depth_mm)) <span class="sc">%&gt;%</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And strip away the columns we don't want</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>flipper_length_mm, <span class="sc">-</span>body_mass_g) <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And we can even include the `head` argument to see our progress</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And we can even include the `glimpse` function to see our progress</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-  species island    bill_length_mm bill_depth_mm sex     year
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;  &lt;int&gt;
-1 Adelie  Torgersen           39.1          18.7 male    2007
-2 Adelie  Torgersen           39.5          17.4 female  2007
-3 Adelie  Torgersen           40.3          18   female  2007
-4 Adelie  Torgersen           36.7          19.3 female  2007
-5 Adelie  Torgersen           39.3          20.6 male    2007
-6 Adelie  Torgersen           38.9          17.8 female  2007</code></pre>
+<pre><code>Rows: 342
+Columns: 6
+$ species        &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie,…
+$ island         &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, …
+$ bill_length_mm &lt;dbl&gt; 39.1, 39.5, 40.3, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 3…
+$ bill_depth_mm  &lt;dbl&gt; 18.7, 17.4, 18.0, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 1…
+$ sex            &lt;fct&gt; male, female, female, female, male, female, male, NA, N…
+$ year           &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…</code></pre>
 </div>
 </div>
-<p>Note that using the pipe allows each line to inherit the data provided by the previous line.</p>
+<p>Note that using the pipe allows each line to inherit the data created by the previous line.</p>
 </div>
 </div>
 </section>

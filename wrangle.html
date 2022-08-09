@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="styles.css">
 <meta name="twitter:title" content="NCEAS Sci Comp Workshop - Tidyverse - Wrangle">
-<meta name="twitter:description" content="What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling.">
+<meta name="twitter:description" content="What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add the results as new columns? These operations (and others) are called “data wrangling”.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -236,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="what-are-tidy-data" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-tidy-data">What are Tidy Data?</h2>
-<p>What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. <code>dplyr</code> and <code>tidyr</code> are two R packages from the <code>tidyverse</code> that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.</p>
+<p>What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add the results as new columns? These operations (and others) are called “data wrangling”. The data we get to work with are rarely, if ever, in the format we need to do our analyses and data wrangling can help bridge that gap. <code>dplyr</code> and <code>tidyr</code> are two R packages from the <code>tidyverse</code> that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.</p>
 <p>We can use <code>glimpse</code> from the <code>dplyr</code> package to look at part of the data while also getting some relevant structural information (i.e., what type of data are in each column, etc.).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse", "palmerpenguins")</span></span>
@@ -281,17 +281,13 @@ Example
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_selected <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, species, island, body_mass_g)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  species island    body_mass_g
-  &lt;fct&gt;   &lt;fct&gt;           &lt;int&gt;
-1 Adelie  Torgersen        3750
-2 Adelie  Torgersen        3800
-3 Adelie  Torgersen        3250
-4 Adelie  Torgersen          NA
-5 Adelie  Torgersen        3450
-6 Adelie  Torgersen        3650</code></pre>
+<pre><code>Rows: 344
+Columns: 3
+$ species     &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Ad…
+$ island      &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Tor…
+$ body_mass_g &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, …</code></pre>
 </div>
 </div>
 <p>If we want to remove specific columns, we can use the <code>-</code> operator.</p>
@@ -300,17 +296,16 @@ Example
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>penguins_selected <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, <span class="sc">-</span>flipper_length_mm, <span class="sc">-</span>sex)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-  species island    bill_length_mm bill_depth_mm body_mass_g  year
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1 Adelie  Torgersen           39.1          18.7        3750  2007
-2 Adelie  Torgersen           39.5          17.4        3800  2007
-3 Adelie  Torgersen           40.3          18          3250  2007
-4 Adelie  Torgersen           NA            NA            NA  2007
-5 Adelie  Torgersen           36.7          19.3        3450  2007
-6 Adelie  Torgersen           39.3          20.6        3650  2007</code></pre>
+<pre><code>Rows: 344
+Columns: 6
+$ species        &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie,…
+$ island         &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, …
+$ bill_length_mm &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.…
+$ bill_depth_mm  &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.…
+$ body_mass_g    &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 425…
+$ year           &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…</code></pre>
 </div>
 </div>
 </div>
@@ -334,17 +329,12 @@ Example
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>penguins_selected <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, dplyr<span class="sc">::</span><span class="fu">contains</span>(<span class="st">"length"</span>))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  bill_length_mm flipper_length_mm
-           &lt;dbl&gt;             &lt;int&gt;
-1           39.1               181
-2           39.5               186
-3           40.3               195
-4           NA                  NA
-5           36.7               193
-6           39.3               190</code></pre>
+<pre><code>Rows: 344
+Columns: 2
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…</code></pre>
 </div>
 </div>
 </div>
@@ -368,17 +358,16 @@ Example
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins_selected <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">.data =</span> penguins, species<span class="sc">:</span>body_mass_g)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the product</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
-1 Adelie  Torgersen           39.1          18.7               181        3750
-2 Adelie  Torgersen           39.5          17.4               186        3800
-3 Adelie  Torgersen           40.3          18                 195        3250
-4 Adelie  Torgersen           NA            NA                  NA          NA
-5 Adelie  Torgersen           36.7          19.3               193        3450
-6 Adelie  Torgersen           39.3          20.6               190        3650</code></pre>
+<pre><code>Rows: 344
+Columns: 6
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …</code></pre>
 </div>
 </div>
 <p>Conveniently selecting a range of columns can be especially useful when you have a big dataframe and don’t want to exhaustively list every column by name.</p>
@@ -441,24 +430,16 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>What if we wanted to get all the rows where the penguin species is “Chinstrap” <strong>or</strong> “Gentoo”? In other words, we want all the rows where <em>either</em> condition is true. There are two options to do this. The first option is to use the “or” operator, <code>|</code>, between each of the conditions.</p>
+<p>What if we wanted to get all the rows where the penguin species is “Chinstrap” <strong>or</strong> “Gentoo”? In other words, we want all the rows where <em>either</em> condition is true. There are two options to do this. The first option is to use the “or” operator (<code>|</code>) between each of the conditions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all the rows where the species is "Chinstrap" or "Gentoo"</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>penguins_filtered <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                             species <span class="sc">==</span> <span class="st">"Chinstrap"</span> <span class="sc">|</span> species <span class="sc">==</span> <span class="st">"Gentoo"</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(penguins_filtered<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  species island bill_length_mm bill_depth_mm flipper_leng…¹ body_…² sex    year
-  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;          &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-1 Gentoo  Biscoe           46.1          13.2            211    4500 fema…  2007
-2 Gentoo  Biscoe           50            16.3            230    5700 male   2007
-3 Gentoo  Biscoe           48.7          14.1            210    4450 fema…  2007
-4 Gentoo  Biscoe           50            15.2            218    5700 male   2007
-5 Gentoo  Biscoe           47.6          14.5            215    5400 male   2007
-6 Gentoo  Biscoe           46.5          13.5            210    4550 fema…  2007
-# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
+<pre><code>[1] Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo</code></pre>
 </div>
 </div>
 <p>This method works fine for a few options but begins to get cumbersome when you have many possible conditions that you’d like to retain. In these cases you can use the <code>%in%</code> operator followed by a vector of values that you want to include in your filter.</p>
@@ -467,18 +448,10 @@ Example
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>penguins_filtered <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                             species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span>))</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(penguins_filtered<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  species island bill_length_mm bill_depth_mm flipper_leng…¹ body_…² sex    year
-  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;          &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-1 Gentoo  Biscoe           46.1          13.2            211    4500 fema…  2007
-2 Gentoo  Biscoe           50            16.3            230    5700 male   2007
-3 Gentoo  Biscoe           48.7          14.1            210    4450 fema…  2007
-4 Gentoo  Biscoe           50            15.2            218    5700 male   2007
-5 Gentoo  Biscoe           47.6          14.5            215    5400 male   2007
-6 Gentoo  Biscoe           46.5          13.5            210    4550 fema…  2007
-# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
+<pre><code>[1] Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo</code></pre>
 </div>
 </div>
 </div>
@@ -502,18 +475,18 @@ Example
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>penguins_filtered <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                             species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">&amp;</span> island <span class="sc">==</span> <span class="st">"Dream"</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  species island bill_length_mm bill_depth_mm flipper_leng…¹ body_…² sex    year
-  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;          &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-1 Adelie  Dream            39.5          16.7            178    3250 fema…  2007
-2 Adelie  Dream            37.2          18.1            178    3900 male   2007
-3 Adelie  Dream            39.5          17.8            188    3300 fema…  2007
-4 Adelie  Dream            40.9          18.9            184    3900 male   2007
-5 Adelie  Dream            36.4          17              195    3325 fema…  2007
-6 Adelie  Dream            39.2          21.1            196    4150 male   2007
-# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
+<pre><code>Rows: 56
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Dream, Dream, Dream, Dream, Dream, Dream, Dream, Dre…
+$ bill_length_mm    &lt;dbl&gt; 39.5, 37.2, 39.5, 40.9, 36.4, 39.2, 38.8, 42.2, 37.6…
+$ bill_depth_mm     &lt;dbl&gt; 16.7, 18.1, 17.8, 18.9, 17.0, 21.1, 20.0, 18.5, 19.3…
+$ flipper_length_mm &lt;int&gt; 178, 178, 188, 184, 195, 196, 190, 180, 181, 184, 18…
+$ body_mass_g       &lt;int&gt; 3250, 3900, 3300, 3900, 3325, 4150, 3950, 3550, 3300…
+$ sex               &lt;fct&gt; female, male, female, male, female, male, male, fema…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
 </div>
 </div>
 </div>
@@ -531,27 +504,21 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When subsetting by numeric columns, we can use greater than (<code>&gt;</code>) and less than (<code>&lt;</code>) to capture the range of possible values that meet that criteria. If you want to include a “or equal to” clause, just add an equal sign to the right of the greater/less than sign in the operator (e.g., <code>&gt;=</code> or <code>&lt;=</code>).</p>
-<p>For instance, we can subset the data for only penguins whose bills are longer than 50 millimeters</p>
+<p>When subsetting by numeric columns, we can use greater than (<code>&gt;</code>) and less than (<code>&lt;</code>) to capture the range of possible values that meet that criteria. If you want to include an “or equal to” clause, just add an equal sign to the right of the greater/less than sign (e.g., <code>&gt;=</code> or <code>&lt;=</code>).</p>
+<p>For instance, we can subset the data for only penguins whose bills are longer than 50 millimeters.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter based on bill length</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>penguins_filtered <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">.data =</span> penguins, bill_length_mm <span class="sc">&gt;</span> <span class="dv">50</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(penguins_filtered<span class="sc">$</span>bill_length_mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  species island bill_length_mm bill_depth_mm flipper_leng…¹ body_…² sex    year
-  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;          &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-1 Gentoo  Biscoe           50.2          14.3            218    5700 male   2007
-2 Gentoo  Biscoe           59.6          17              230    6050 male   2007
-3 Gentoo  Biscoe           50.5          15.9            222    5550 male   2008
-4 Gentoo  Biscoe           50.5          15.9            225    5400 male   2008
-5 Gentoo  Biscoe           50.1          15              225    5000 male   2008
-6 Gentoo  Biscoe           50.4          15.3            224    5550 male   2008
-# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
+<pre><code> [1] 50.1 50.1 50.2 50.2 50.2 50.3 50.4 50.4 50.5 50.5 50.5 50.5 50.5 50.6 50.7
+[16] 50.7 50.8 50.8 50.8 50.8 50.9 50.9 51.0 51.1 51.1 51.3 51.3 51.3 51.3 51.4
+[31] 51.5 51.5 51.7 51.9 52.0 52.0 52.0 52.1 52.2 52.2 52.5 52.7 52.8 53.4 53.5
+[46] 54.2 54.3 55.1 55.8 55.9 58.0 59.6</code></pre>
 </div>
 </div>
-<p>Note that when filtering for numeric columns we do not need the quotation marks.</p>
+<p>Note that when filtering for numeric columns we do not need the quotation marks around the number(s) we use to filter.</p>
 </div>
 </div>
 </section>
@@ -572,18 +539,18 @@ Example
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all the rows where the species is NOT "Chinstrap"</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>penguins_filtered <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="at">.data =</span> penguins, species <span class="sc">!=</span> <span class="st">"Chinstrap"</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  species island    bill_length_mm bill_depth_mm flipper_l…¹ body_…² sex    year
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-1 Adelie  Torgersen           39.1          18.7         181    3750 male   2007
-2 Adelie  Torgersen           39.5          17.4         186    3800 fema…  2007
-3 Adelie  Torgersen           40.3          18           195    3250 fema…  2007
-4 Adelie  Torgersen           NA            NA            NA      NA &lt;NA&gt;   2007
-5 Adelie  Torgersen           36.7          19.3         193    3450 fema…  2007
-6 Adelie  Torgersen           39.3          20.6         190    3650 male   2007
-# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
+<pre><code>Rows: 276
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
 </div>
 </div>
 </div>
@@ -631,19 +598,19 @@ Example
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column with the penguins' body mass in kilograms</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>penguins_mutated <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">.data =</span> penguins, <span class="at">body_mass_kg =</span> body_mass_g <span class="sc">/</span> <span class="dv">1000</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_mutated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_mutated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 9
-  species island    bill_length_mm bill_de…¹ flipp…² body_…³ sex    year body_…⁴
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;     &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;   &lt;dbl&gt;
-1 Adelie  Torgersen           39.1      18.7     181    3750 male   2007    3.75
-2 Adelie  Torgersen           39.5      17.4     186    3800 fema…  2007    3.8 
-3 Adelie  Torgersen           40.3      18       195    3250 fema…  2007    3.25
-4 Adelie  Torgersen           NA        NA        NA      NA &lt;NA&gt;   2007   NA   
-5 Adelie  Torgersen           36.7      19.3     193    3450 fema…  2007    3.45
-6 Adelie  Torgersen           39.3      20.6     190    3650 male   2007    3.65
-# … with abbreviated variable names ¹​bill_depth_mm, ²​flipper_length_mm,
-#   ³​body_mass_g, ⁴​body_mass_kg</code></pre>
+<pre><code>Rows: 344
+Columns: 9
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…
+$ body_mass_kg      &lt;dbl&gt; 3.750, 3.800, 3.250, NA, 3.450, 3.650, 3.625, 4.675,…</code></pre>
 </div>
 </div>
 </div>
@@ -683,15 +650,15 @@ Example
 </section>
 <section id="conditional-operations" class="level3">
 <h3 class="anchored" data-anchor-id="conditional-operations">Conditional Operations</h3>
-<p>Sometimes in data wrangling we’ll want to generate a new column where the contents of the column are dependent upon an exisitng column but we have many separate “if X then Y” type statements. Such statements are called “conditional” statements in programming. You may already be familiar with base R’s <code>ifelse</code> function for handling cases where you have an either/or condition.</p>
+<p>Sometimes in data wrangling we’ll want to generate a new column where the contents of the column are dependent upon an existing column but we have many separate “if X then Y” type statements. Such statements are called “conditional” statements in programming. You may already be familiar with base R’s <code>ifelse</code> function for handling cases where you have an either/or condition.</p>
 <p>In the <code>tidyverse</code>–specifically <code>dplyr</code>–we have <code>case_when</code> for handling multiple conditions in an efficient and relatively straightforward way! Why are we talking about <code>case_when</code> here? Because you can use <code>case_when</code> inside of a <code>mutate</code> to create a new column based on the conditions that you specify.</p>
 <p>Here is what the general syntax for this operation looks like:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>your_data_v2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">.data =</span> your_data,</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">new_column_name =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                condition1 <span class="sc">~</span> value_for_condition1,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                condition2 <span class="sc">~</span> value_for_condition2,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                condition3 <span class="sc">~</span> value_for_condition3,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">new_column_name =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                  condition1 <span class="sc">~</span> value_for_condition1,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                  condition2 <span class="sc">~</span> value_for_condition2,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                  condition3 <span class="sc">~</span> value_for_condition3,</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                  ...</span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>                <span class="cn">TRUE</span> <span class="sc">~</span> value_if_no_conditions_are_met))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -718,24 +685,24 @@ Example
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter your conditions on the left side and the values on the right side of the tilde</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>penguins_mutated <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">.data =</span> penguins,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">flipper_rank =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                      flipper_length_mm <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                      flipper_length_mm <span class="sc">&gt;=</span> <span class="dv">200</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">flipper_rank =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                    flipper_length_mm <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                    flipper_length_mm <span class="sc">&gt;=</span> <span class="dv">200</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))</span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_mutated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_mutated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 9
-  species island    bill_length_mm bill_de…¹ flipp…² body_…³ sex    year flipp…⁴
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;     &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;   &lt;dbl&gt;
-1 Adelie  Torgersen           39.1      18.7     181    3750 male   2007       1
-2 Adelie  Torgersen           39.5      17.4     186    3800 fema…  2007       1
-3 Adelie  Torgersen           40.3      18       195    3250 fema…  2007       1
-4 Adelie  Torgersen           NA        NA        NA      NA &lt;NA&gt;   2007       0
-5 Adelie  Torgersen           36.7      19.3     193    3450 fema…  2007       1
-6 Adelie  Torgersen           39.3      20.6     190    3650 male   2007       1
-# … with abbreviated variable names ¹​bill_depth_mm, ²​flipper_length_mm,
-#   ³​body_mass_g, ⁴​flipper_rank</code></pre>
+<pre><code>Rows: 344
+Columns: 9
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…
+$ flipper_rank      &lt;dbl&gt; 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</code></pre>
 </div>
 </div>
 </div>
@@ -767,24 +734,25 @@ Your Turn!
 <p>Another relatively common task in data wrangling involves splitting the contents of one column into several columns. To demonstrate, let’s first make a new column that contains the full scientific names for these penguins using <code>mutate</code> and <code>case_when</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember that conditions are on the left side and the values are on the right side of the tilde</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">.data =</span> penguins, <span class="at">scientific_name =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">~</span> <span class="st">"Pygoscelis_adeliae"</span>,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  species <span class="sc">==</span> <span class="st">"Chinstrap"</span> <span class="sc">~</span> <span class="st">"Pygoscelis_antarcticus"</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  species <span class="sc">==</span> <span class="st">"Gentoo"</span> <span class="sc">~</span> <span class="st">"Pygoscelis_papua"</span>))</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>penguins_v1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">.data =</span> penguins, </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">scientific_name =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                               species <span class="sc">==</span> <span class="st">"Adelie"</span> <span class="sc">~</span> <span class="st">"Pygoscelis_adeliae"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                               species <span class="sc">==</span> <span class="st">"Chinstrap"</span> <span class="sc">~</span> <span class="st">"Pygoscelis_antarcticus"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                               species <span class="sc">==</span> <span class="st">"Gentoo"</span> <span class="sc">~</span> <span class="st">"Pygoscelis_papua"</span>))</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_v1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 9
-  species island    bill_length_mm bill_de…¹ flipp…² body_…³ sex    year scien…⁴
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;     &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;  
-1 Adelie  Torgersen           39.1      18.7     181    3750 male   2007 Pygosc…
-2 Adelie  Torgersen           39.5      17.4     186    3800 fema…  2007 Pygosc…
-3 Adelie  Torgersen           40.3      18       195    3250 fema…  2007 Pygosc…
-4 Adelie  Torgersen           NA        NA        NA      NA &lt;NA&gt;   2007 Pygosc…
-5 Adelie  Torgersen           36.7      19.3     193    3450 fema…  2007 Pygosc…
-6 Adelie  Torgersen           39.3      20.6     190    3650 male   2007 Pygosc…
-# … with abbreviated variable names ¹​bill_depth_mm, ²​flipper_length_mm,
-#   ³​body_mass_g, ⁴​scientific_name</code></pre>
+<pre><code>Rows: 344
+Columns: 9
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…
+$ scientific_name   &lt;chr&gt; "Pygoscelis_adeliae", "Pygoscelis_adeliae", "Pygosce…</code></pre>
 </div>
 </div>
 <p>If we want to split the scientific name into genus and specific epithet, we can use the <code>separate</code> function from the <code>tidyr</code> package.</p>
@@ -809,19 +777,20 @@ Example
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">sep =</span> <span class="st">"_"</span>,</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"genus"</span>, <span class="st">"epithet"</span>))</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_separated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(penguins_separated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 10
-  species island    bill_len…¹ bill_…² flipp…³ body_…⁴ sex    year genus epithet
-  &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  
-1 Adelie  Torgersen       39.1    18.7     181    3750 male   2007 Pygo… adeliae
-2 Adelie  Torgersen       39.5    17.4     186    3800 fema…  2007 Pygo… adeliae
-3 Adelie  Torgersen       40.3    18       195    3250 fema…  2007 Pygo… adeliae
-4 Adelie  Torgersen       NA      NA        NA      NA &lt;NA&gt;   2007 Pygo… adeliae
-5 Adelie  Torgersen       36.7    19.3     193    3450 fema…  2007 Pygo… adeliae
-6 Adelie  Torgersen       39.3    20.6     190    3650 male   2007 Pygo… adeliae
-# … with abbreviated variable names ¹​bill_length_mm, ²​bill_depth_mm,
-#   ³​flipper_length_mm, ⁴​body_mass_g</code></pre>
+<pre><code>Rows: 344
+Columns: 10
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…
+$ genus             &lt;chr&gt; "Pygoscelis", "Pygoscelis", "Pygoscelis", "Pygosceli…
+$ epithet           &lt;chr&gt; "adeliae", "adeliae", "adeliae", "adeliae", "adeliae…</code></pre>
 </div>
 </div>
 </div>
