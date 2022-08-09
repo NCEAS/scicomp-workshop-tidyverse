@@ -71,7 +71,6 @@ The columns are as follows:
 
 This dataset is an example of **tidy data**, which means that each **variable** is in its own **column** and each **observation** is in its own **row**. Generally speaking, functions from packages in the `tidyverse` expect tidy data though they can be used in some cases to help get data into tidy format! Regardless, the penguins dataset is what we'll use for all examples in this workshop so be sure that you install the `palmerpenguins` R package. The examples on this page were adapted from [Allison Horst's `dplyr` tutorial](https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome)!
 
-
 ## Websites to Visit
 
 ### Supplemental Material
