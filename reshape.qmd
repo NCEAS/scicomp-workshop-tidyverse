@@ -51,9 +51,8 @@ Let's say that we want to take that data object and reshape it into wide format 
 # Begin by naming the objects
 penguins_wide <- penguins_simp %>%
   # And now we can pivot wider with `pivot_wider`!
-  tidyr::pivot_wider(
-    names_from = island,
-    values_from = avg_bill_length_mm )
+  tidyr::pivot_wider(names_from = island,
+                     values_from = avg_bill_length_mm )
 
 # Take a look!
 penguins_wide
@@ -77,10 +76,9 @@ Now that we have a small wide format data object, we can feed it to `pivot_longe
 # Begin with our wide data
 penguins_wide %>%
   # And reshape back into long format
-  pivot_longer(
-    cols = -species,
-    names_to = "island_name",
-    values_to = "mean_bill_length_mm" )
+  pivot_longer(cols = -species,
+               names_to = "island_name",
+               values_to = "mean_bill_length_mm" )
 ```
 
 Two quick things to note here:

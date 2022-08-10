@@ -5,7 +5,7 @@ title: "Wrangle"
 
 ## What are Tidy Data?
 
-What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add new columns? This is called data wrangling. The data we get to work with are rarely, if ever, in the format we need to do our analyses. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.
+What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add the results as new columns? These operations (and others) are called "data wrangling". The data we get to work with are rarely, if ever, in the format we need to do our analyses and data wrangling can help bridge that gap. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.
 
 We can use `glimpse` from the `dplyr` package to look at part of the data while also getting some relevant structural information (i.e., what type of data are in each column, etc.).
 
@@ -37,7 +37,7 @@ To select only the `species`, `island`, and `body_mass_g` columns, we can use th
 penguins_selected <- dplyr::select(.data = penguins, species, island, body_mass_g)
 
 # Look at the product
-head(penguins_selected)
+dplyr::glimpse(penguins_selected)
 ```
 
 If we want to remove specific columns, we can use the `-` operator.
@@ -47,7 +47,7 @@ If we want to remove specific columns, we can use the `-` operator.
 penguins_selected <- dplyr::select(.data = penguins, -flipper_length_mm, -sex)
 
 # Look at the product
-head(penguins_selected)
+dplyr::glimpse(penguins_selected)
 ```
 :::
 
@@ -63,7 +63,7 @@ If we want to select the columns that contain length measurements, we can manual
 penguins_selected <- dplyr::select(.data = penguins, dplyr::contains("length"))
 
 # Look at the product
-head(penguins_selected)
+dplyr::glimpse(penguins_selected)
 ```
 :::
 
@@ -79,7 +79,7 @@ Now what if we wanted all the columns from the first column `species` to the six
 penguins_selected <- dplyr::select(.data = penguins, species:body_mass_g)
 
 # Look at the product
-head(penguins_selected)
+dplyr::glimpse(penguins_selected)
 ```
 
 Conveniently selecting a range of columns can be especially useful when you have a big dataframe and don't want to exhaustively list every column by name.
@@ -121,14 +121,14 @@ Note that we need to write the value we're looking for as a character string boo
 :::callout-note
 ## Example
 
-What if we wanted to get all the rows where the penguin species is "Chinstrap" **or** "Gentoo"? In other words, we want all the rows where *either* condition is true. There are two options to do this. The first option is to use the "or" operator, `|`, between each of the conditions.
+What if we wanted to get all the rows where the penguin species is "Chinstrap" **or** "Gentoo"? In other words, we want all the rows where *either* condition is true. There are two options to do this. The first option is to use the "or" operator (`|`) between each of the conditions.
 
 ```{r filter-either}
 # Get all the rows where the species is "Chinstrap" or "Gentoo"
 penguins_filtered <- dplyr::filter(.data = penguins,
                              species == "Chinstrap" | species == "Gentoo")
 
-head(penguins_filtered)
+unique(penguins_filtered$species)
 ```
 
 This method works fine for a few options but begins to get cumbersome when you have many possible conditions that you'd like to retain. In these cases you can use the `%in%` operator followed by a vector of values that you want to include in your filter.
@@ -138,7 +138,7 @@ This method works fine for a few options but begins to get cumbersome when you h
 penguins_filtered <- dplyr::filter(.data = penguins,
                              species %in% c("Chinstrap", "Gentoo"))
 
-head(penguins_filtered)
+unique(penguins_filtered$species)
 ```
 :::
 
@@ -154,7 +154,7 @@ We can also keep rows where both conditions are met by using the `&` operator to
 penguins_filtered <- dplyr::filter(.data = penguins,
                              species == "Adelie" & island == "Dream")
 
-head(penguins_filtered)
+dplyr::glimpse(penguins_filtered)
 ```
 :::
 
@@ -163,18 +163,18 @@ head(penguins_filtered)
 :::callout-note
 ## Example
 
-When subsetting by numeric columns, we can use greater than (`>`) and less than (`<`) to capture the range of possible values that meet that criteria. If you want to include a "or equal to" clause, just add an equal sign to the right of the greater/less than sign in the operator (e.g., `>=` or `<=`). 
+When subsetting by numeric columns, we can use greater than (`>`) and less than (`<`) to capture the range of possible values that meet that criteria. If you want to include an "or equal to" clause, just add an equal sign to the right of the greater/less than sign (e.g., `>=` or `<=`). 
 
-For instance, we can subset the data for only penguins whose bills are longer than 50 millimeters
+For instance, we can subset the data for only penguins whose bills are longer than 50 millimeters.
 
 ```{r filter-numeric}
 # Filter based on bill length
 penguins_filtered <- dplyr::filter(.data = penguins, bill_length_mm > 50)
 
-head(penguins_filtered)
+sort(penguins_filtered$bill_length_mm)
 ```
 
-Note that when filtering for numeric columns we do not need the quotation marks.
+Note that when filtering for numeric columns we do not need the quotation marks around the number(s) we use to filter.
 :::
 
 ### `filter` Example: Exclusion Criteria
@@ -188,7 +188,7 @@ Sometimes it's faster to subset the rows that **do not** meet a condition, rathe
 # Get all the rows where the species is NOT "Chinstrap"
 penguins_filtered <- dplyr::filter(.data = penguins, species != "Chinstrap")
 
-head(penguins_filtered)
+dplyr::glimpse(penguins_filtered)
 ```
 :::
 
@@ -199,7 +199,6 @@ head(penguins_filtered)
 
 Using `filter`, how would you get all of the rows that **do not** have any `NA` values in the `sex` column?
 :::
-
 
 ## Making and Modifying Columns
 
@@ -224,7 +223,7 @@ If we wanted to add a new column that has the penguin's body mass in kilograms, 
 # Create a new column with the penguins' body mass in kilograms
 penguins_mutated <- dplyr::mutate(.data = penguins, body_mass_kg = body_mass_g / 1000)
 
-head(penguins_mutated)
+dplyr::glimpse(penguins_mutated)
 ```
 :::
 
@@ -249,10 +248,9 @@ class(penguins_mutated$island)
 Now `island` is a character column!
 :::
 
-
 ### Conditional Operations
 
-Sometimes in data wrangling we'll want to generate a new column where the contents of the column are dependent upon an exisitng column but we have many separate "if X then Y" type statements. Such statements are called "conditional" statements in programming. You may already be familiar with base R's `ifelse` function for handling cases where you have an either/or condition.
+Sometimes in data wrangling we'll want to generate a new column where the contents of the column are dependent upon an existing column but we have many separate "if X then Y" type statements. Such statements are called "conditional" statements in programming. You may already be familiar with base R's `ifelse` function for handling cases where you have an either/or condition.
 
 In the `tidyverse`--specifically `dplyr`--we have `case_when` for handling multiple conditions in an efficient and relatively straightforward way! Why are we talking about `case_when` here? Because you can use `case_when` inside of a `mutate` to create a new column based on the conditions that you specify.
 
@@ -260,10 +258,10 @@ Here is what the general syntax for this operation looks like:
 
 ```{r case_when-syntax, eval = F}
 your_data_v2 <- dplyr::mutate(.data = your_data,
-              new_column_name = dplyr::case_when(
-                condition1 ~ value_for_condition1,
-                condition2 ~ value_for_condition2,
-                condition3 ~ value_for_condition3,
+             new_column_name = dplyr::case_when(
+                  condition1 ~ value_for_condition1,
+                  condition2 ~ value_for_condition2,
+                  condition3 ~ value_for_condition3,
                   ...
                 TRUE ~ value_if_no_conditions_are_met))
 ```
@@ -284,12 +282,12 @@ Suppose we want to add a new column called `flipper_rank` that contains the foll
 ```{r case-when}
 # Enter your conditions on the left side and the values on the right side of the tilde
 penguins_mutated <- dplyr::mutate(.data = penguins,
-                                  flipper_rank = dplyr::case_when(
-                      flipper_length_mm < 200 ~ 1,
-                      flipper_length_mm >= 200 ~ 2,
-                      TRUE ~ 0))
+                 flipper_rank = dplyr::case_when(
+                    flipper_length_mm < 200 ~ 1,
+                    flipper_length_mm >= 200 ~ 2,
+                    TRUE ~ 0))
 
-head(penguins_mutated)
+dplyr::glimpse(penguins_mutated)
 ```
 :::
 
@@ -311,12 +309,13 @@ Another relatively common task in data wrangling involves splitting the contents
 
 ```{r penguins-spp}
 # Remember that conditions are on the left side and the values are on the right side of the tilde
-penguins_v1 <- dplyr::mutate(.data = penguins, scientific_name = dplyr::case_when(
-  species == "Adelie" ~ "Pygoscelis_adeliae",
-  species == "Chinstrap" ~ "Pygoscelis_antarcticus",
-  species == "Gentoo" ~ "Pygoscelis_papua"))
+penguins_v1 <- dplyr::mutate(.data = penguins, 
+                             scientific_name = dplyr::case_when(
+                               species == "Adelie" ~ "Pygoscelis_adeliae",
+                               species == "Chinstrap" ~ "Pygoscelis_antarcticus",
+                               species == "Gentoo" ~ "Pygoscelis_papua"))
 
-head(penguins_v1)
+dplyr::glimpse(penguins_v1)
 ```
 
 If we want to split the scientific name into genus and specific epithet, we can use the `separate` function from the `tidyr` package.
@@ -335,6 +334,6 @@ penguins_separated <- tidyr::separate(data = penguins_v1,
                                       sep = "_",
                                       into = c("genus", "epithet"))
 
-head(penguins_separated)
+dplyr::glimpse(penguins_separated)
 ```
 :::
