@@ -282,10 +282,10 @@ Suppose we want to add a new column called `flipper_rank` that contains the foll
 ```{r case-when}
 # Enter your conditions on the left side and the values on the right side of the tilde
 penguins_mutated <- dplyr::mutate(.data = penguins,
-                 flipper_rank = dplyr::case_when(
-                    flipper_length_mm < 200 ~ 1,
-                    flipper_length_mm >= 200 ~ 2,
-                    TRUE ~ 0))
+                                  flipper_rank = dplyr::case_when(
+                                    flipper_length_mm < 190 ~ "short",
+                                    flipper_length_mm >= 190 ~ "long")
+)
 
 dplyr::glimpse(penguins_mutated)
 ```
