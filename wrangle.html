@@ -403,15 +403,15 @@ Example
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
-  species   island bill_length_mm bill_depth_mm flipper_le…¹ body_…² sex    year
-  &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;        &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-1 Chinstrap Dream            46.5          17.9          192    3500 fema…  2007
-2 Chinstrap Dream            50            19.5          196    3900 male   2007
-3 Chinstrap Dream            51.3          19.2          193    3650 male   2007
-4 Chinstrap Dream            45.4          18.7          188    3525 fema…  2007
-5 Chinstrap Dream            52.7          19.8          197    3725 male   2007
-6 Chinstrap Dream            45.2          17.8          198    3950 fema…  2007
-# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
+  species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
+  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
+1 Chinst… Dream            46.5          17.9              192        3500 fema…
+2 Chinst… Dream            50            19.5              196        3900 male 
+3 Chinst… Dream            51.3          19.2              193        3650 male 
+4 Chinst… Dream            45.4          18.7              188        3525 fema…
+5 Chinst… Dream            52.7          19.8              197        3725 male 
+6 Chinst… Dream            45.2          17.8              198        3950 fema…
+# … with 1 more variable: year &lt;int&gt;</code></pre>
 </div>
 </div>
 <p>Note that we need to write the value we’re looking for as a character string bookended by quotation marks.</p>
@@ -678,9 +678,8 @@ Example
 <div class="callout-body-container callout-body">
 <p>Suppose we want to add a new column called <code>flipper_rank</code> that contains the following:</p>
 <ul>
-<li>2 if <code>flipper_length_mm</code> is &gt;= 200 mm</li>
-<li>1 if <code>flipper_length_mm</code> is &lt; 200 mm</li>
-<li>0 is <code>flipper_length_mm</code> is anything else (e.g.&nbsp;<code>NA</code>)</li>
+<li>“short” if <code>flipper_length_mm</code> is &lt; 190 mm</li>
+<li>“long” if <code>flipper_length_mm</code> is &gt;= 190 mm</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter your conditions on the left side and the values on the right side of the tilde</span></span>
