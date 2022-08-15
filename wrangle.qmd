@@ -275,9 +275,8 @@ Let's look at an example to make this somewhat more tangible.
 
 Suppose we want to add a new column called `flipper_rank` that contains the following:
 
--   2 if `flipper_length_mm` is \>= 200 mm
--   1 if `flipper_length_mm` is \< 200 mm
--   0 is `flipper_length_mm` is anything else (e.g. `NA`)
+-   "short" if `flipper_length_mm` is \< 190 mm
+-   "long" if `flipper_length_mm` is \>= 190 mm
 
 ```{r case-when}
 # Enter your conditions on the left side and the values on the right side of the tilde
