@@ -12,12 +12,14 @@ While the bulk of the `tidyverse` is focused on modifying a given data object, `
 
 ## Creating a Plot
 
-To create the foundation for your plot, we'll use the `ggplot` function (note that the package is `ggplot2` while the function lacks the "2"). This function allows you to globally define the data object you're using as well as which variable(s) should be mapped to x and y axes as well as aesthetic parameters--for example, which groups outline or fill color should be inherited from, etc. The `ggplot` function relies on an aesthetics helper function named `aes`. We'll give `ggplot` the data name and `aes` while we'll pass all relevant variables to `aes` directly. This may be easier to follow once we've covered an example so let's do that now!
+To create the foundation for your plot, we'll use the `ggplot` function (note that the package is `ggplot2` while the function name lacks the "2"). This function allows you to globally define the data object you're using as well as which variable(s) should be mapped to x and y axes as well as aesthetic parameters--for example, which groups outline or fill color should be inherited from, etc. The `ggplot` function relies on an aesthetics helper function named `aes`. We'll give `ggplot` the data name and `aes` while we'll pass all relevant variables to `aes` directly. This may be easier to follow once we've covered an example so let's do that now!
 
 :::callout-note
 ## Example
 
 Just like the preceding chapters, let's use the `penguins` dataset to demonstrate this plot. Let's create a the foundation of a graph that has `year` on the y-axis and `body_mass_g` in the x-axis.
+
+The `ggplot` function wants both a `data` and `mapping` argument that we'll specify here for clarity but will exclude going forward. `mapping` expects the `aes` function that in turn defines all your variable placements.
 
 ```{r ggplot-no-geom, message = F}
 ggplot(data = penguins, mapping = aes(x = year, y = body_mass_g))
@@ -32,7 +34,7 @@ Now that we have a baseline plot, we can add desired geometries using the `geom_
 
 ### Geometry Aside No. 1 - Adding Plot Elements
 
-You may have noticed that the core plot is built with `ggplot` and `aes` but each subsequent component is added with one of the `geom_...` functions and realized the gap we haven't talked about yet: how do we combine these separate lines of code? The answer is part of what makes `ggplot` different from the rest of the `tidyverse`. In the rest of the `tidyverse` we chain together multiple lines of code with the `%>%` operator, however, **in `ggplot2` we use the `+` to combine separate lines of code.**
+You may have noticed that the core plot is built with `ggplot` and `aes` but each subsequent component is added with one of the `geom_...` functions and realized the gap we haven't talked about yet: how do we combine these separate lines of code? The answer is part of what makes `ggplot` different from the rest of the `tidyverse`. In the rest of the `tidyverse` we chain together multiple lines of code with the `%>%` operator, however, **in `ggplot2` we use `+` to combine separate lines of code.**
 
 This has a distinct advantage that we'll discuss later but we'll use the `+` in the following example to show its use.
 
@@ -41,14 +43,14 @@ This has a distinct advantage that we'll discuss later but we'll use the `+` in 
 :::callout-note
 ## Example
 
-Let's re-create our year x body mass plot but let's make it a scatter plot by adding `geom_point`.
+Let's re-create our `year` by `body_mass_g` plot but let's make it a scatter plot by adding `geom_point`.
 
 ```{r geom-single, warning = F, message = F}
 ggplot(data = penguins, mapping = aes(x = year, y = body_mass_g)) +
   geom_point()
 ```
 
-Because `aes` gets all of the variable information, we don't need to give *anything* to `geom_point`! This makes adding multiple geometries much easier than if we had to re-specify the variables separately in every geometry!
+Because `aes` gets all of the variable mapping information, we don't need to give *anything* to `geom_point`! This makes adding multiple geometries much easier than if we had to re-specify the variables separately in every geometry!
 :::
 
 ### `geom_...` Example: Adding Multiple Geometries
@@ -76,9 +78,7 @@ The heading says it all: *order matters!* The order that you add `geom_...`s to 
 :::callout-note
 ## Example
 
-Let's say we want to make a `ggplot` of bill depth within each penguin species and we want both a boxplot and the points that make up the boxplot. This involves using both the `geom_point` and `geom_boxplot` geometries but order will be crucial! To demonstrate our point better, we'll also add a new argument to our `aes`: `fill`. `fill` defines which variable should be used to fill in open spaces (like bar or box plots).
-
-Let's create our plot!
+Let's say we want to make a `ggplot` of bill depth within each penguin species and we want both a boxplot and the points that make up the boxplot. This involves using both the `geom_point` and `geom_boxplot` geometries but order will be crucial! To demonstrate our point better, we'll also add a new argument to our `aes`: `fill`. `fill` defines which variable should be used to fill in open spaces (like bar or box plots). Let's create our plot!
 
 ```{r geom-order-1, warning = F, message = F}
 ggplot(penguins, aes(x = species, y = bill_depth_mm, fill = species)) +
@@ -150,7 +150,7 @@ plot_v3 <- plot_v2 +
 plot_v3
 ```
 
-Great! We could of course just add the `ggplot` and `geom_point` and `geom_smooth` together at the same time but the `+` allows us to build graphics step-by-step if we so desire.
+Great! We could have added the `ggplot` and `geom_point` and `geom_smooth` lines together at the same time but the `+` allows us to build graphics step-by-step if we so desire.
 :::
 
 ## Customizing Plots
@@ -345,6 +345,7 @@ Even better! If you'd like, you can use a pre-built `theme` *and* specify additi
 
 ```{r theme-classic-manual, warning = F, message = F}
 core_plot + 
+  # Add the 'classic' theme
   theme_classic() +
   # As before, change the legend position and axis text size
   theme(legend.position = c(0.9, 0.15),
@@ -352,7 +353,7 @@ core_plot +
         axis.text = element_text(size = 14) )
 ```
 
-Now that is looking publication-quality! One quick note though: **whichever theme specification is last "wins".** This means that if you set font size to 14 and then add a `theme` argument beneath it that sets it to 30, the font size of your plot will be 30. This is part of why you can add pre-built themes and your own custom modifications together but is good to keep in mind if you're sure your custom theme is specified correctly but isn't showing up in your plot.
+Now that is looking publication-quality! One quick note though: **whichever theme specification is last "wins".** This means that if you have a `theme` call that sets font size to 14 and then add a second `theme` beneath it that sets font size to 30, the font size of your plot will be 30. This is part of why you can add pre-built themes and your own custom modifications together but is good to keep in mind if you're sure your custom theme is specified correctly but isn't showing up in your plot.
 :::
 
 ### Challenge: `theme`
