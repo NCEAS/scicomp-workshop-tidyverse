@@ -2,7 +2,6 @@
 title: "Wrangle"
 ---
 
-
 ## What are Tidy Data?
 
 What are some common things you like to do with your data? Maybe remove rows or columns, do calculations and add the results as new columns? These operations (and others) are called "data wrangling". The data we get to work with are rarely, if ever, in the format we need to do our analyses and data wrangling can help bridge that gap. `dplyr` and `tidyr` are two R packages from the `tidyverse` that provide a fairly complete and extremely powerful set of functions for us to do virtually all needed wrangling quickly. Here we introduce some commonly used functions from these two packages.
