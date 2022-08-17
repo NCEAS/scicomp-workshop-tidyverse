@@ -22,6 +22,7 @@ website:
       - reshape.qmd
       - join.qmd
       - about.qmd
+      - visualize.qmd
     right:
       - icon: github
         href: https://github.com/NCEAS/scicomp-workshop-tidyverse
