@@ -157,6 +157,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="./join.html">Join</a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./visualize.html">Visualize</a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./about.html">Content Creators</a>
   </li>  
 </ul>
@@ -403,15 +406,15 @@ Example
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
-  species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
-  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
-1 Chinst… Dream            46.5          17.9              192        3500 fema…
-2 Chinst… Dream            50            19.5              196        3900 male 
-3 Chinst… Dream            51.3          19.2              193        3650 male 
-4 Chinst… Dream            45.4          18.7              188        3525 fema…
-5 Chinst… Dream            52.7          19.8              197        3725 male 
-6 Chinst… Dream            45.2          17.8              198        3950 fema…
-# … with 1 more variable: year &lt;int&gt;</code></pre>
+  species   island bill_length_mm bill_depth_mm flipper_le…¹ body_…² sex    year
+  &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;        &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+1 Chinstrap Dream            46.5          17.9          192    3500 fema…  2007
+2 Chinstrap Dream            50            19.5          196    3900 male   2007
+3 Chinstrap Dream            51.3          19.2          193    3650 male   2007
+4 Chinstrap Dream            45.4          18.7          188    3525 fema…  2007
+5 Chinstrap Dream            52.7          19.8          197    3725 male   2007
+6 Chinstrap Dream            45.2          17.8          198    3950 fema…  2007
+# … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g</code></pre>
 </div>
 </div>
 <p>Note that we need to write the value we’re looking for as a character string bookended by quotation marks.</p>
