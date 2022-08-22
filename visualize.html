@@ -533,7 +533,7 @@ Example
 <p><img src="visualize_files/figure-html/scale-fill-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Two quick notes before we move on:</p>
+<p>Three quick notes before we move on:</p>
 <ol type="1">
 <li><p>If you want to change the color(s) used by the <code>color</code> argument of <code>aes</code> you must use <code>scale_color_manual</code>. <code>ggplot2</code> defines “color” as the outlines of shapes or the whole shape <strong><em>if</em></strong> the shape isn’t hollow and defines “fill” as the interior of hollow shapes. If you ever try to manually specify one or the other and your plot looks the same, chances are you’re using the wrong <code>scale_..._manual</code> function!</p></li>
 <li><p>You can use “hexadecimal codes” for colors (sort of a machine-readable way of specifying colors) in this function. We find the website <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">colorbrewer2.org</a> particularly useful because it groups colors into palettes and includes a “colorblind safe” check box that limits your options to only those that will be accessible to all viewers. You can also download the <code>RColorBrewer</code> package to easily incorporate its many color palettes into your visualizations!</p></li>
@@ -672,7 +672,7 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let’s re-use the <code>core_plot</code> object we build above to quickly demonstrate <code>theme_bw</code> and <code>theme_classic</code>. You’ve likely seen the default <code>ggplot2</code> theme <em>ad nauseam</em> at this point but let’s show it one more time for comparative purposes.</p>
+<p>Let’s re-use the <code>core_plot</code> object we built above to quickly demonstrate <code>theme_bw</code> and <code>theme_classic</code>. You’ve likely seen the default <code>ggplot2</code> theme <em>ad nauseam</em> at this point but let’s show it one more time for comparative purposes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>core_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
