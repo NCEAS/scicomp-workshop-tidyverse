@@ -218,7 +218,7 @@ ggplot(penguin_count, aes(x = island, y = total, fill = species)) +
   scale_fill_manual(values = c("red", "orange", "yellow"))
 ```
 
-Two quick notes before we move on:
+Three quick notes before we move on:
 
 1.  If you want to change the color(s) used by the `color` argument of `aes` you must use `scale_color_manual`. `ggplot2` defines "color" as the outlines of shapes or the whole shape **_if_** the shape isn't hollow and defines "fill" as the interior of hollow shapes. If you ever try to manually specify one or the other and your plot looks the same, chances are you're using the wrong `scale_..._manual` function!
 
@@ -323,7 +323,7 @@ If that all seemed pretty involved, don't worry! `ggplot2` comes with several `t
 :::callout-note
 ## Example
 
-Let's re-use the `core_plot` object we build above to quickly demonstrate `theme_bw` and `theme_classic`. You've likely seen the default `ggplot2` theme *ad nauseam* at this point but let's show it one more time for comparative purposes.
+Let's re-use the `core_plot` object we built above to quickly demonstrate `theme_bw` and `theme_classic`. You've likely seen the default `ggplot2` theme *ad nauseam* at this point but let's show it one more time for comparative purposes.
 
 ```{r theme-default, warning = F, message = F}
 core_plot
