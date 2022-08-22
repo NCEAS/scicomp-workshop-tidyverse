@@ -256,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="creating-a-plot" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-plot">Creating a Plot</h2>
-<p>To create the foundation for your plot, we’ll use the <code>ggplot</code> function (note that the package is <code>ggplot2</code> while the function name lacks the “2”). This function allows you to globally define the data object you’re using as well as which variable(s) should be mapped to x and y axes as well as aesthetic parameters–for example, which groups outline or fill color should be inherited from, etc. The <code>ggplot</code> function relies on an aesthetics helper function named <code>aes</code>. We’ll give <code>ggplot</code> the data name and <code>aes</code> while we’ll pass all relevant variables to <code>aes</code> directly. This may be easier to follow once we’ve covered an example so let’s do that now!</p>
+<p>To create the foundation for your plot, we’ll use the <code>ggplot</code> function (note that the package is <code>ggplot2</code> while the function name lacks the “2”). This function allows you to globally define the data object you’re using as well as which variable(s) should be mapped to x and y axes as well as aesthetic parameters–for example, which groups outline or fill color should be inherited from, etc. The <code>ggplot</code> function relies on an aesthetics helper function named <code>aes</code>. We’ll give <code>ggplot</code> the data name and <code>aes</code>, while we’ll pass all relevant variables to <code>aes</code> directly. This may be easier to follow once we’ve covered an example so let’s do that now!</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -267,7 +267,7 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Just like the preceding chapters, let’s use the <code>penguins</code> dataset to demonstrate this plot. Let’s create a the foundation of a graph that has <code>year</code> on the y-axis and <code>body_mass_g</code> in the x-axis.</p>
+<p>Just like the preceding chapters, let’s use the <code>penguins</code> dataset to demonstrate this plot. Let’s create the foundation of a graph that has <code>year</code> on the y-axis and <code>body_mass_g</code> in the x-axis.</p>
 <p>The <code>ggplot</code> function wants both a <code>data</code> and <code>mapping</code> argument that we’ll specify here for clarity but will exclude going forward. <code>mapping</code> expects the <code>aes</code> function that in turn defines all your variable placements.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> penguins, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> body_mass_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -468,7 +468,7 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let’s make a plot of the number of penguins per island per species with more informative axis labels and a plot title. We’ll need to calculate that quickly but we can leverage the tools we practices in the “Summarize” chapter to do that.</p>
+<p>Let’s make a plot of the number of penguins per island per species with more informative axis labels and a plot title. We’ll need to calculate that quickly but we can leverage the tools we practiced in the “Summarize” chapter to do that.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count penguins</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>penguin_count <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
@@ -505,7 +505,7 @@ $ total   &lt;int&gt; 44, 56, 52, 68, 124</code></pre>
 <section id="customizing---using-custom-colors" class="level3">
 <h3 class="anchored" data-anchor-id="customizing---using-custom-colors">Customizing - Using Custom Colors</h3>
 <p>As we’ve progressed through this training you may have noticed the classic <code>ggplot2</code> default colors (the first three are a mild red, blue, and green). It is often the case however that we want to choose our own colors; this is where <code>scale_fill_manual</code> becomes needed.</p>
-<p>This function is added in the same way that the <code>geom_...</code> and <code>labs</code> functions are added and requires a vector of the colors that you want to use instead of the defaults. There are two key conditions to keep in mind when specifying your colors. First, <strong>you must supply as many colors as there are groups to color <em>by</em></strong>; <code>ggplot2</code> will not fill in defaults if you supply too few colors and won’t guess which to drop if you give too many. Second, <strong>the order that you provide colors in must be correct</strong> OR <strong>you must “name” each color to assign it to a specific group</strong> to “name” the color, use the following syntax: <code>c(groupA = color1, groupB = color2, ...</code>. Order can be simplest but it is often nice to be explicit about which group should be which color.</p>
+<p>This function is added in the same way that the <code>geom_...</code> and <code>labs</code> functions are added and requires a vector of the colors that you want to use instead of the defaults. There are two key conditions to keep in mind when specifying your colors. First, <strong>you must supply as many colors as there are groups to color <em>by</em></strong>; <code>ggplot2</code> will not fill in defaults if you supply too few colors and won’t guess which to drop if you give too many. Second, <strong>the order that you provide colors in must be correct</strong> OR <strong>you must “name” each color to assign it to a specific group</strong>. To “name” the color, use the following syntax: <code>c(groupA = color1, groupB = color2, ...</code>. Order can be simple but it is often nice to be explicit about which group should be which color.</p>
 <p>Let’s return to our bar plot above and change the colors used for our bar plot.</p>
 </section>
 <section id="scale_fill_manual-example-specify-fill" class="level3">
@@ -536,7 +536,8 @@ Example
 <p>Two quick notes before we move on:</p>
 <ol type="1">
 <li><p>If you want to change the color(s) used by the <code>color</code> argument of <code>aes</code> you must use <code>scale_color_manual</code>. <code>ggplot2</code> defines “color” as the outlines of shapes or the whole shape <strong><em>if</em></strong> the shape isn’t hollow and defines “fill” as the interior of hollow shapes. If you ever try to manually specify one or the other and your plot looks the same, chances are you’re using the wrong <code>scale_..._manual</code> function!</p></li>
-<li><p>You can use “hexadecimal codes” for colors (sort of a machine-readable way of specifying colors) in this function. We find the website <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">colorbrewer2.org</a> particularly useful because it groups colors into palettes and includes a “colorblind safe” check box that limits your options to only those that will be accessible to all viewers.</p></li>
+<li><p>You can use “hexadecimal codes” for colors (sort of a machine-readable way of specifying colors) in this function. We find the website <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">colorbrewer2.org</a> particularly useful because it groups colors into palettes and includes a “colorblind safe” check box that limits your options to only those that will be accessible to all viewers. You can also download the <code>RColorBrewer</code> package to easily incorporate its many color palettes into your visualizations!</p></li>
+<li><p>Feel free to check out <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf">NCEAS’ R color cheatsheet</a> for more color options.</p></li>
 </ol>
 </div>
 </div>
@@ -660,7 +661,7 @@ Example
 </section>
 <section id="theme-example-pre-packaged-themes" class="level3">
 <h3 class="anchored" data-anchor-id="theme-example-pre-packaged-themes"><code>theme</code> Example: Pre-Packaged Themes</h3>
-<p>If that all seemed pretty involved, don’t worry! <code>ggplot2</code> comes with several <code>theme_...</code> functions that are pre-built and modify a lot of these parameters in desirable ways without necessitating you doing a deep dive into Google. For instance, <code>theme_bw</code> or <code>theme_classic</code> or both great options that we’ll demonstrate below.</p>
+<p>If that all seemed pretty involved, don’t worry! <code>ggplot2</code> comes with several <code>theme_...</code> functions that are pre-built and modify a lot of these parameters in desirable ways without necessitating you doing a deep dive into Google. For instance, <code>theme_bw</code> or <code>theme_classic</code> are both great options that we’ll demonstrate below.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -747,7 +748,7 @@ Example
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin with `theme_classic` and then add on our custom modifications</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>my_theme <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># As before, we're moving the plot and increasing axis font size</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># As before, we're moving the legend and increasing axis font size</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.8</span>),</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>),</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
