@@ -197,7 +197,7 @@ We now have much more human-readable axis labels and an informative title! `labs
 
 As we've progressed through this training you may have noticed the classic `ggplot2` default colors (the first three are a mild red, blue, and green). It is often the case however that we want to choose our own colors; this is where `scale_fill_manual` becomes needed.
 
-This function is added in the same way that the `geom_...` and `labs` functions are added and requires a vector of the colors that you want to use instead of the defaults. There are two key conditions to keep in mind when specifying your colors. First, **you must supply as many colors as there are groups to color _by_**; `ggplot2` will not fill in defaults if you supply too few colors and won't guess which to drop if you give too many. Second, **the order that you provide colors in must be correct** OR **you must "name" each color to assign it to a specific group**. To "name" the color, use the following syntax: `c(groupA = color1, groupB = color2, ...`. Order can be simple but it is often nice to be explicit about which group should be which color.
+This function is added in the same way that the `geom_...` and `labs` functions are added and requires a vector of the colors that you want to use instead of the defaults. There are two key conditions to keep in mind when specifying your colors. First, **you must supply as many colors as there are groups to color _by_**; `ggplot2` will not fill in defaults if you supply too few colors and won't guess which to drop if you give too many. Second, **the order that you provide colors in must be correct** OR **you must "name" each color to assign it to a specific group**. To "name" the color, use the following syntax: `c(groupA = color1, groupB = color2, ...`. Order can be a simple vector but it is often nice to be explicit about which group should be which color.
 
 Let's return to our bar plot above and change the colors used for our bar plot.
 
@@ -218,13 +218,73 @@ ggplot(penguin_count, aes(x = island, y = total, fill = species)) +
   scale_fill_manual(values = c("red", "orange", "yellow"))
 ```
 
-Three quick notes before we move on:
+Two quick notes before we move on:
 
-1.  If you want to change the color(s) used by the `color` argument of `aes` you must use `scale_color_manual`. `ggplot2` defines "color" as the outlines of shapes or the whole shape **_if_** the shape isn't hollow and defines "fill" as the interior of hollow shapes. If you ever try to manually specify one or the other and your plot looks the same, chances are you're using the wrong `scale_..._manual` function!
+1. You can use "hexadecimal codes" for colors (sort of a machine-readable way of specifying colors) in this function. We find the website [colorbrewer2.org](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) particularly useful because it groups colors into palettes and includes a "colorblind safe" check box that limits your options to only those that will be accessible to all viewers. You can also download the `RColorBrewer` package to easily incorporate its many color palettes into your visualizations!
 
-2. You can use "hexadecimal codes" for colors (sort of a machine-readable way of specifying colors) in this function. We find the website [colorbrewer2.org](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) particularly useful because it groups colors into palettes and includes a "colorblind safe" check box that limits your options to only those that will be accessible to all viewers. You can also download the `RColorBrewer` package to easily incorporate its many color palettes into your visualizations!
+2. Feel free to check out [NCEAS' R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf) for more color options.
+:::
 
-3. Feel free to check out [NCEAS' R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf) for more color options.
+### Customizing - `color` versus `fill`
+
+One nuance of `ggplot2` aesthetics that we should cover before continuing is the difference between "color" and "fill". If used in the `aes` function, both of these at first glance seem to dictate what we might think of as "plot color." In the example above, we used `scale_fill_manual` to specify the color of the bars in our bar plot.
+
+Put clearly: `ggplot2` defines "fill" versus "color" as follows:
+
+- `fill` = controls **color inside** of a hollow shape
+- `color` = controls **color on the _outside_** of a hollow shape *or* the **entire color of a solid shape**
+    - From `ggplot2`'s point of view, a solid shape is essentially a shape that is all outline and both real outlines and non-hollow shapes fall under `color`'s jurisdiction
+
+Let's make some example plots to demonstrate this distinction.
+
+:::callout-note
+## Example
+
+Let's make a boxplot of `bill_length_mm` across penguin `species` and set `fill` to `species`.
+
+```{r color-vs-fill-1, message = F, warning = F}
+ggplot(penguins, aes(x = species, y = bill_length_mm,
+                     fill = species)) +
+  geom_boxplot()
+```
+
+Notice how the *interior* of the boxes is colored by species? Watch what happens when we make the same plot again but change `fill = ` to `color = ` in the `aes` function:
+
+```{r color-vs-fill-2, message = F, warning = F}
+ggplot(penguins, aes(x = species, y = bill_length_mm,
+                     color = species)) +
+  geom_boxplot()
+```
+
+See how the interior of the box plots now defaults to white but the outline edges become colored by `species`? Let's demonstrate this again with a solid object to show `fill` versus `color` in another context.
+
+Let's create a scatterplot of `bill_length_mm` by `bill_depth_mm` and `color` by `species`
+
+```{r color-vs-fill-3, message = F, warning = F}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm,
+                     color = species)) +
+  geom_point()
+```
+
+The default point shape for a `ggplot2` scatterplot is a solid dot so the points are now fully colored by `species` (see `?pch` for other point options). What if we changed `color = ` to `fill = ` though?
+
+```{r color-vs-fill-4, message = F, warning = F}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm,
+                     fill = species)) +
+  geom_point()
+```
+
+Interestingly, `ggplot2` knows that you're trying to differentiate by `species` so it still returns a legend but unfortunately all three species' points defaulted to black so we can't see the difference! If we change the points to be hollow however...
+
+```{r color-vs-fill-5, message = F, warning = F}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm,
+                     fill = species)) +
+  geom_point(shape = 21)
+```
+
+We now get our points *filled* with the correct color with a black outline to each point!
+
+If you ever try to manually specify one or the other and your plot looks the same, chances are you're mis-specifying `color` for `fill` or vice versa. Double check that and you will often resolve the issue
 :::
 
 ### Challenge: Customizing
