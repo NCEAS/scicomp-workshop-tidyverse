@@ -8,7 +8,7 @@ This workshop provides an overview of many of the packages included in the `tidy
 
 <img src = "images/hex_tidyverse.png" align = "right" width = "17%" />
 
-To maximize the value of this workshop to you, we recommend that you take the following steps **before the day of the workshop**. If anything is unclear, feel free to reach out to us; our contact information can be found in the "[Content Creators](about.qmd)" tab.
+To maximize the value of this workshop to you, we recommend that you take the following steps **before the day of the workshop**. If anything is unclear, feel free to reach out to us; our contact information can be found in the "Content Creators" tab.
 
 ## Programs to Install
 
