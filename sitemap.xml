@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/join.html</loc>
-    <lastmod>2022-12-09T17:46:16.744Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/summarize.html</loc>
-    <lastmod>2022-12-09T17:46:18.136Z</lastmod>
-  </url>
-  <url>
     <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/index.html</loc>
-    <lastmod>2022-12-09T17:46:18.720Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/visualize.html</loc>
-    <lastmod>2022-12-09T17:46:19.732Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/wrangle.html</loc>
-    <lastmod>2022-12-09T17:46:20.520Z</lastmod>
+    <lastmod>2023-02-06T19:13:48.479Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/reshape.html</loc>
-    <lastmod>2022-12-09T17:46:21.088Z</lastmod>
+    <lastmod>2023-02-06T19:13:49.755Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/summarize.html</loc>
+    <lastmod>2023-02-06T19:13:50.351Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/visualize.html</loc>
+    <lastmod>2023-02-06T19:13:51.287Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/join.html</loc>
+    <lastmod>2023-02-06T19:13:51.875Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/NCEAS/scicomp-workshop-tidyverse/wrangle.html</loc>
+    <lastmod>2023-02-06T19:13:52.619Z</lastmod>
   </url>
 </urlset>
