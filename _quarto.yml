@@ -7,7 +7,7 @@ execute:
   freeze: auto
 
 website:
-  title: "NCEAS Sci Comp Workshop - Tidyverse"
+  title: "NCEAS SciComp Workshop - Tidyverse"
   favicon: images/scicomptools_hex.png
   repo-url: https://github.com/NCEAS/scicomp-workshop-tidyverse
   repo-actions: [issue]
@@ -27,7 +27,7 @@ website:
   navbar:
     background: primary
     right:
-      - text: "Sci Comp Team"
+      - text: "SciComp Team"
         menu:
           - href: https://nceas.github.io/scicomp.github.io/
             text: "Home"
