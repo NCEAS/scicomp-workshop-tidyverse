@@ -7,7 +7,7 @@ execute:
   freeze: auto
 
 website:
-  title: "NCEAS SciComp Workshop - Tidyverse"
+  title: "NCEAS SciComp Workshop - Coding in the `tidyverse`"
   favicon: images/scicomptools_hex.png
   repo-url: https://github.com/NCEAS/scicomp-workshop-tidyverse
   repo-actions: [issue]
