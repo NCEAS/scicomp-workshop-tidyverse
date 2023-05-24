@@ -2,6 +2,13 @@
 title: "Join"
 ---
 
+## Module Learning Objectives
+
+By the end of this module, you will be able to:
+
+- <u>Differentiate</u> `dplyr`'s various `join` functions from each other
+- <u>Use</u> `dplyr`'s `left_join`, `right_join`, `inner_join`, `full_join`, and `anti_join` functions to manipulate two dataframes
+
 ```{r libraries-join, echo = F, message = F}
 library(tidyverse); library(palmerpenguins)
 ```

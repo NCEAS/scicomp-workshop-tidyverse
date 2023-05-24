@@ -2,6 +2,18 @@
 title: "Visualize"
 ---
 
+## Module Learning Objectives
+
+By the end of this module, you will be able to:
+
+- <u>Create</u> a baseline plot with `ggplot2`'s `ggplot` function along with the `aes` helper function.
+- <u>Add</u> desired geometries to your baseline plot with the `geom_...` family of functions
+- <u>Explain</u> the advantage of using the `+` operator to add together multiple plot elements
+- <u>Use</u> `ggplot2`'s `labs` and `scale_fill_manual` helper functions to customize your plot's labels and colors 
+- <u>Differentiate</u> `aes`' `fill` and `color` arguments 
+- <u>Generate</u> separate plots based on grouping variable(s) with `ggplot2`'s `facet_grid` function
+- <u>Design</u> a custom format for your plots using `ggplot2`'s `theme` function
+
 ```{r libraries-visualize, echo = F, message = F}
 library(tidyverse); library(palmerpenguins)
 ```
