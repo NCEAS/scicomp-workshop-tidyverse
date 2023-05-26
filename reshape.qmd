@@ -7,8 +7,7 @@ title: "Reshape"
 By the end of this module, you will be able to:
 
 - <u>Contrast</u> "long" data with "wide" data  
-- <u>Use</u> `tidyr`'s `pivot_wider` function to convert data to wide format
-- <u>Use</u> `tidyr`'s `pivot_longer` function to convert data to long format
+- <u>Use</u> `tidyr`'s `pivot_wider` and `pivot_longer` functions to reshape data
 
 ```{r libraries-reshape, echo = F, message = F}
 library(tidyverse); library(palmerpenguins)

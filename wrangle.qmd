@@ -6,9 +6,8 @@ title: "Wrangle"
 
 By the end of this module, you will be able to:
 
-- <u>Use</u> `dplyr`'s `select` function to select relevant columns from your dataframe
-- <u>Use</u> `dplyr`'s `filter` function along with logical and boolean operators to subset rows
-- <u>Use</u> `dplyr`'s `mutate` and `case_when` functions to create and modify columns 
+- <u>Manipulate</u> rows and columns with `dplyr`'s `select` and `filter` functions
+- <u>Create</u> new columns with `dplyr`'s `mutate` function and fill them conditionally with `case_when` (also from `dplyr`) 
 - <u>Use</u> `tidyr`'s `separate` function to split a column into two
 
 ## What are Tidy Data?
