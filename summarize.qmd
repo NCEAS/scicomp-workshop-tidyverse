@@ -2,6 +2,14 @@
 title: "Summarize"
 ---
 
+## Module Learning Objectives
+
+By the end of this module, you will be able to:
+
+- <u>Describe</u> the purpose of the pipe operator (`%>%`)
+- <u>Use</u> the pipe operator (`%>%`) to chain multiple functions together
+- <u>Summarize</u> data by using `dplyr`'s `group_by` and `summarize` functions 
+
 ```{r libraries-summarize, echo = F, message = F}
 library(tidyverse); library(palmerpenguins)
 ```

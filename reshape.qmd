@@ -2,6 +2,13 @@
 title: "Reshape"
 ---
 
+## Module Learning Objectives
+
+By the end of this module, you will be able to:
+
+- <u>Contrast</u> "long" data with "wide" data  
+- <u>Use</u> `tidyr`'s `pivot_wider` and `pivot_longer` functions to reshape data
+
 ```{r libraries-reshape, echo = F, message = F}
 library(tidyverse); library(palmerpenguins)
 ```

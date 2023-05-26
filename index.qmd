@@ -39,7 +39,7 @@ library(palmerpenguins)
 
 ## Penguin Data
 
-The data we'll be using for this workshop comes from the `palmerpenguins` package, maintained by [Allison Horst](ahorst@ucsb.edu). The "penguins" dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let's take a look at it!
+The data we'll be using for this workshop comes from the `palmerpenguins` package, maintained by [Allison Horst](mailto:ahorst@ucsb.edu). The "penguins" dataset from this package contains size measurements for adult foraging penguins near Palmer Station, Antarctica. Data were collected and made available by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research (LTER) Program. Let's take a look at it!
 
 ```{r libraries-index, echo = F, message = F}
 library(tidyverse); library(palmerpenguins)
