@@ -8,7 +8,7 @@ By the end of this module, you will be able to:
 
 - <u>Manipulate</u> rows and columns with `dplyr`'s `select` and `filter` functions
 - <u>Create</u> new columns with `dplyr`'s `mutate` function and fill them conditionally with `case_when` (also from `dplyr`) 
-- <u>Use</u> `tidyr`'s `separate` function to split a column into two
+- <u>Use</u> `tidyr`'s `separate_wider_delim` function to split a column into two
 
 ## What are Tidy Data?
 
