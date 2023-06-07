@@ -265,12 +265,12 @@ Here is what the general syntax for this operation looks like:
 
 ```{r case_when-syntax, eval = F}
 your_data_v2 <- dplyr::mutate(.data = your_data,
-             new_column_name = dplyr::case_when(
-                  condition1 ~ value_for_condition1,
-                  condition2 ~ value_for_condition2,
-                  condition3 ~ value_for_condition3,
-                  ...
-                TRUE ~ value_if_no_conditions_are_met))
+                              new_column_name = dplyr::case_when(
+                                  condition1 ~ value_for_condition1,
+                                  condition2 ~ value_for_condition2,
+                                  condition3 ~ value_for_condition3,
+                                  ...
+                                  TRUE ~ value_if_no_conditions_are_met))
 ```
 
 Let's look at an example to make this somewhat more tangible.
@@ -324,21 +324,21 @@ penguins_v1 <- dplyr::mutate(.data = penguins,
 dplyr::glimpse(penguins_v1)
 ```
 
-If we want to split the scientific name into genus and specific epithet, we can use the `separate` function from the `tidyr` package.
+If we want to split the scientific name into genus and specific epithet, we can use the `separate_wider_delim` function from the `tidyr` package.
 
-### `separate` Example: Splitting a Column Apart
+### `separate_wider_delim` Example: Splitting a Column Apart
 
 :::callout-note
 ## Example
 
-Using our new scientific name column, suppose we want to split it so that `scientific_name` becomes two columns: `genus` and `epithet`. Using `tidyr`'s `separate` function we can do this in a single step!
+Using our new scientific name column, suppose we want to split it so that `scientific_name` becomes two columns: `genus` and `epithet`. Using `tidyr`'s `separate_wider_delim` function we can do this in a single step!
 
 ```{r separate}
 # Indicate the column you want to split, the separator, and the new column names!
-penguins_separated <- tidyr::separate(data = penguins_v1,
-                                      col = scientific_name,
-                                      sep = "_",
-                                      into = c("genus", "epithet"))
+penguins_separated <- tidyr::separate_wider_delim(data = penguins_v1,
+                                                  cols = scientific_name,
+                                                  delim = "_",
+                                                  names = c("genus", "epithet"))
 
 dplyr::glimpse(penguins_separated)
 ```
