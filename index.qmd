@@ -29,7 +29,7 @@ If your version starts with a 3 (e.g., the above code returns "R version 3..."),
 **Install the `tidyverse` and `palmerpenguins` R packages** using the following code:
 
 ```{r install-packages, eval = F}
-install.packages("tidyverse", "palmerpenguins")
+install.packages(c("tidyverse", "palmerpenguins"))
 library(tidyverse)
 library(palmerpenguins)
 ```
